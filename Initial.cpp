@@ -3,22 +3,17 @@ using namespace std;
 
 int main()
 {
-    cout<<"Algo for prime no \n";
-    int n=1,count=0;
-    for (int i = 1; i<=n; i++)
+    cout<<"Pattern like:\n 1 2 3\n 4 5 6\n7 8 9";
+    int count=1,n=3;
+    cout<<"\n Output \n";
+    for (int i = 0; i < n; i++)
     {
-        if(n%i==0)
+        for (int j = 0; j < n; j++)
         {
-            count=count+1;
+            cout<<count;
+            count++;
         }
+        cout<<endl;
     }
-    if (count<=2 && count>0)
-    {
-        cout<<"Prime";
-    }
-    else
-    {
-        cout<<"Not Prime";
-    }
-    return 0;
+    
 }
