@@ -3,30 +3,25 @@ using namespace std;
 
 int main()
 {
-    cout<<"Pattern like:\n 1\n 22\n 333 (while loop)";
-    int n=3,count=1;
+    cout<<"Pattern like:\n 1\n 23\n 456 (while loop)";
+    int n=3,row=1;
     cout<<"\n Output \n";
-    while (count <=n)
+    while (row <=n)
     {
-        int a=1;
-        while (a<=count)
+        int col=1;
+        int value=row;
+        while (col<=row)
         {
-            cout<<count;
-            a++;
+            cout<<value;
+            value++;
+            col++;
         }
-        cout<<"\n";
-        count++;
+        cout<<endl;
+
+        row++;
     }   
 
-    cout<<"\n For Loop \n";
-    for (int i = 1; i <=n; i++)
-    {
-        for (int j = 1;j<=i; j++)
-        {
-            cout<<i;
-        }
-        cout<<"\n";
-    }
+    
         
 }
     
