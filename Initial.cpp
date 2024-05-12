@@ -3,7 +3,7 @@ using namespace std;
 
 int main()
 {
-    cout<<"Pattern like:\n AAA\n BBB\n CCC (while loop)";
+    cout<<"Pattern like:\n ABC\n ABC\n ABC (while loop)";
     int n=3,row=1;
     cout<<"\n Output \n";
     while (row <=n)
@@ -11,7 +11,7 @@ int main()
         int col=1;
         while (col<=n)
         {
-            char ch='A'+row-1;
+            char ch='A'+col-1;
             cout<<ch;
             col++;
         }
