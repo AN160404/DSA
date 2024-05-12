@@ -3,15 +3,15 @@ using namespace std;
 
 int main()
 {
-    cout<<"Pattern like:\n 1\n 23\n 345 (while loop) without extra variable";
+    cout<<"Pattern like:\n 1\n 21\n 321 (while loop)";
     int n=3,row=1;
     cout<<"\n Output \n";
     while (row <=n)
     {
-        int col=row;
-        while (col<2*row)
+        int col=1;
+        while (col<=row)
         {
-            cout<<col;
+            cout<<row-col+1;
             col++;
         }
         cout<<endl;
