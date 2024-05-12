@@ -3,17 +3,19 @@ using namespace std;
 
 int main()
 {
-    cout<<"Pattern like:\n *\n **\n ***";
-    int n=3;
+    cout<<"Pattern like:\n *\n **\n *** (while loop)";
+    int n=3,count=1;
     cout<<"\n Output \n";
-    for (int i = 0; i < n; i++)
+    while (count <=n)
     {
-        for (int j = 0; j<=i; j++)
+        int a=1;
+        while (a<=count)
         {
             cout<<"*";
-            
+            a++;
         }
-        cout<<endl;
-    }
-    
+        cout<<"\n";
+        count++;
+
+    }    
 }
