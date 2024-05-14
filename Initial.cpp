@@ -3,26 +3,24 @@ using namespace std;
 
 int main()
 {
-    cout<<"Pattern like:\n C\n BC\n ABC (while loop)";
+    cout<<"Pattern like:\n   *\n  **\n ***(while loop)";
     int n=3,row=1;
     cout<<"\n Output \n";
-
     while (row <=n)
     {
+        int space=n-row;
+        while (space)
+        {
+            cout<<" ";
+            space--;
+        }
         int col=1;
-        char ch='A'+n-row;
         while (col<=row)
         {
-            char value=ch;
-            ch++;
-            cout<<value;
+            cout<<"*";
             col++;
         }
-        cout<<endl;
-        row++;
-    }   
-
-    
-        
+    row++;
+    cout<<endl;
+    }
 }
-    
