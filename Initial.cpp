@@ -3,17 +3,18 @@ using namespace std;
 
 int main()
 {
-    cout<<"Pattern like:\n A\n BC\n CDE (while loop)";
+    cout<<"Pattern like:\n C\n BC\n ABC (while loop)";
     int n=3,row=1;
     cout<<"\n Output \n";
-    char ch='A';
 
     while (row <=n)
     {
         int col=1;
+        char ch='A'+n-row;
         while (col<=row)
         {
-            char value=ch+row+col-2;
+            char value=ch;
+            ch++;
             cout<<value;
             col++;
         }
