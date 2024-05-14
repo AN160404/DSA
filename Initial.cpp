@@ -2,7 +2,7 @@
 using namespace std;
 
 int main() {
-    cout << "Pattern like:\n***\n **\n  *(while loop)";
+    cout << "Pattern like:\n111\n 22\n  3(while loop)";
     int n = 3, row = 1;
     cout << "\n Output \n";
     while (row <= n) {
@@ -11,9 +11,9 @@ int main() {
             cout << " ";
             space++;
         }
-        int star = n - row + 1;
+        int star =n-row+1;
         while (star) {  // Loop for stars
-            cout << "*";
+            cout << row;
             star--;
         }
         row++;
