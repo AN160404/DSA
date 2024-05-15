@@ -2,10 +2,9 @@
 using namespace std;
 
 int main() {
-    cout << "Pattern like:\n1\n 23\n  456\n   78910 (while loop)";
+    cout << "Pattern like:\n   1\n  121\n 12321\n1234321 (while loop)";
     int n = 4, row = 1;
     cout << "\nOutput\n";
-    int value=1;
     while (row <= n) {
         int space = n-row;  // Start with 1 space in each row
         while (space>0) { // Loop for spaces
@@ -15,10 +14,16 @@ int main() {
         int col=1;
         while (col<=row)
         {
-            cout<<value;
-            value++;
+            cout<<col;
             col++;
         }
+        int col1=1;
+        while (col1<row)
+        {
+            cout<<row-col1;
+            col1++;
+        }
+        
         row++;
         cout << endl;
     }
