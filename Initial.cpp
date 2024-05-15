@@ -2,7 +2,7 @@
 using namespace std;
 
 int main() {
-    cout << "Pattern like:\n1234\n 123\n  12\n   1 (while loop)";
+    cout << "Pattern like:\n1234\n 234\n  34\n   4 (while loop)";
     int n = 4, row = 1;
     cout << "\nOutput\n";
     while (row <= n) {
@@ -11,8 +11,8 @@ int main() {
             cout << " ";
             space++;
         }
-        int col = 1;
-        while (col<=n-row+1) {
+        int col = row;
+        while (col<=n) {
             cout << col;
             col++;
         }
