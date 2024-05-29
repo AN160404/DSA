@@ -1,23 +1,20 @@
-// #Leetcode 1281
+// #Leetcode 191
 #include <iostream>
 using namespace std;
 
 class Solution {
 public:
-    bool isPalindrome(int x) {
-        int num=x,rem=1,n=0;
-        while(num>0)
+    int hammingWeight(int n) {
+        
+        int count=0;
+
+        while(n!=0)
         {
-            rem=num%10;
-            n=(n*10)+rem;
-            num=num/10;
-        }
-        if(n==x)
-        {
-            return true;
-        }
-        else{
-            return false;
+            if (n&1)
+            {
+                count++;
+            }
+            n=n>>1;
         }
     }
 };
@@ -25,5 +22,5 @@ public:
 int main()
 {
     Solution obj;
-    obj.isPalindrome(121);
+    obj.hammingWeight(1);
 }
