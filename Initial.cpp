@@ -4,31 +4,26 @@ using namespace std;
 
 class Solution {
 public:
-    int subtractProductAndSum(int n) {
-        int sum=0,product=1,diff;
-        int num=n,num1=n;
-        int rem=1;
-        int len=0;
-        while(num1>0)
+    bool isPalindrome(int x) {
+        int num=x,rem=1,n=0;
+        while(num>0)
         {
-            num1=num1/10;
-            len++;
-            cout<<len<<endl;
-        }
-        for(int i=0;i<len;i++)
-        {
-            sum=sum+num%10;
-            product=product*(num%10);
+            rem=num%10;
+            n=(n*10)+rem;
             num=num/10;
         }
-        diff=product-sum;
-        cout<<"product"<<product<<endl;
-        cout<<"sum"<<sum<<endl;
-        cout<<"diff:"<<diff<<endl; 
+        if(n==x)
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 };
+
 int main()
 {
     Solution obj;
-    obj.subtractProductAndSum(111);
+    obj.isPalindrome(121);
 }
