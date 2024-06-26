@@ -1,29 +1,26 @@
-//Push
+//Pop
 #include <iostream>
 using namespace std;
 int main(){
     int size=5;
-    int stack[size]={};
+    int stack[size]={1,2,3,4,5};
     int n=0;
-    cout<<"Enter the number of elements to be added"<<endl;
+    cout<<"Enter the number of elements to be popped"<<endl;
     cin>>n;
-    int top=-1,num=0;
+    int top=size,num=0;
     while (n>0)
     {
-        cout<<"Enter element to be added"<<endl;
-        cin>>num;
-        if(top==size-1)
+        if(top<=-1)
     {
-        cout<<"Stack Overflow"<<endl;
+        cout<<"Stack Underflow"<<endl;
         return 0;
     }
     else{
-        top++;
-        stack[top]=num;
+        top=top-1;
     }
     n--;
     }
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < top; i++)
     {
         cout<<stack[i]<<endl;
     }
