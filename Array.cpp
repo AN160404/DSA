@@ -1,24 +1,24 @@
-//Deletion in an Array by position
+//2D matrix to 1D by Column major order
 #include <iostream>
 using namespace std;
 int main()
 {
-    int size=5;
-    int arr[size]={1,2,3,4,5};
-    int num=0,pos=0;
-    cout<<"Enter position to be deleted:"<<endl;
-    cin>>pos;
-
-    for (int i =pos; i <size; i++)
+    int rows=3,columns=3;
+    int arr[3][3]={{1,2,3},{4,5,6},{7,8,9}};
+    int index=0;
+    int flattened[rows*columns]={};
+    for (int i = 0; i < columns; i++)
     {
-        arr[i]=arr[i+1];
+        for (int j = 0; j < rows; j++)
+        {
+            flattened[index]=arr[j][i];
+            index++;
+        }
     }
-    size--;
-    cout<<"deleted list --"<<endl;
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < rows*columns; i++)
     {
-        
-        cout<<arr[i]<<endl;
+        cout<<flattened[i]<<endl;
     }
     
+    return 0;
 }
