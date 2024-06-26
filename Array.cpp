@@ -1,4 +1,4 @@
-//2D matrix to 1D by Column major order
+//2D matrix to 1D by Row major order
 #include <iostream>
 using namespace std;
 int main()
@@ -7,11 +7,11 @@ int main()
     int arr[3][3]={{1,2,3},{4,5,6},{7,8,9}};
     int index=0;
     int flattened[rows*columns]={};
-    for (int i = 0; i < columns; i++)
+    for (int i = 0; i < rows; i++)
     {
-        for (int j = 0; j < rows; j++)
+        for (int j = 0; j < columns; j++)
         {
-            flattened[index]=arr[j][i];
+            flattened[index]=arr[i][j];
             index++;
         }
     }
