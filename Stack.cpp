@@ -1,28 +1,21 @@
-//Pop
+//Tower of hanoi
 #include <iostream>
 using namespace std;
-int main(){
-    int size=5;
-    int stack[size]={1,2,3,4,5};
-    int n=0;
-    cout<<"Enter the number of elements to be popped"<<endl;
-    cin>>n;
-    int top=size,num=0;
-    while (n>0)
+int Tower(int num, char source, char dest, char aux)
+{
+    if(num==1)
     {
-        if(top<=-1)
-    {
-        cout<<"Stack Underflow"<<endl;
+        cout<<"Moved from "<< source<<" to "<<dest<<endl;
         return 0;
     }
     else{
-        top=top-1;
+        Tower( num-1, source, aux, dest);
+        cout<<"Moved from "<< source<<" to "<<dest<<endl;        
+        Tower( num-1, aux, dest, source);
     }
-    n--;
-    }
-    for (int i = 0; i < top; i++)
-    {
-        cout<<stack[i]<<endl;
-    }
+}
+int main(){
+    int num=3;
+    Tower(num,'S','D','A');
     return 0;
 }
