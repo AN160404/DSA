@@ -1,34 +1,27 @@
-//Enqueue
+//Dequeue
 #include <iostream>
 using namespace std;
 int main()
 {
-    int num=0;
-    cout<<"Enter number:"<<endl;
-    cin>>num;
-
     int size=5;
-    int queue[size]={};
-    int rear=-1,front=-1;
-    if (rear==size-1)
+    int queue[size]={1,2,3,4,5};
+    int rear=4,front=0;
+    
+    
+    if(front==-1 || front>rear)
     {
-        cout<<"Queue is full"<<endl;
-        return 0;
-    }
-    if (rear==-1 && front==-1)
-    {
-        front=0;
-        rear=0;
+        cout<<"underflow"<<endl;
     }
     else{
-        rear=rear+1;
+        int val=queue[front];
+        front=front+1;
     }
-    queue[rear]=num;
 
-    for (int i = 0; i < size; i++)
+    for (int i = size-1; i >=front; i--)
     {
         cout<<queue[i]<<endl;
     }
+    
         return 0;
 
 }
