@@ -4,20 +4,30 @@ using namespace std;
 int main()
 {
     int size=5;
-    int queue[size]={1,2,3,4,5};
-    int rear=4,front=0;
+    int queue[size]={};
+    int rear=-1,front=-1;
+    int value=1;
     
-    
-    if(front==-1 || front>rear)
+    if(front==0 && rear==size-1 ||  front==rear+1)
     {
-        cout<<"underflow"<<endl;
+        cout<<"overflow"<<endl;
+        return 0;
+    }
+    if(front==-1 && rear==-1)
+    {
+        front=0;
+        rear=0;
+    }
+    else if(front!=0 && rear==size-1)
+    {
+        rear=0;
     }
     else{
-        int val=queue[front];
-        front=front+1;
+        rear=rear+1;
     }
+    queue[rear]=value;
 
-    for (int i = size-1; i >=front; i--)
+    for (int i = front; i <size; i++)
     {
         cout<<queue[i]<<endl;
     }
