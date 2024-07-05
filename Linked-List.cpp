@@ -39,7 +39,7 @@ int main()
     newnode->next=NULL;
 
     int i=0;
-    while (i<location)
+    while (i<location-1)
     {
         ptr=ptr->next;
         i++;
