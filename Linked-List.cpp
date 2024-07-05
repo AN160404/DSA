@@ -23,21 +23,29 @@ int main()
     fourth->next=fifth;
     fifth->data=4;
     fifth->next=NULL;
+
+
     struct Node *ptr;
     ptr=head;
-    int item;
+    int item,location;
     cout<<"Enter item to be inserted: "<<endl;
     cin>>item;
+    cout<<"Enter Location: "<<endl;
+    cin>>location;
 
     struct Node *newnode;
     newnode=(struct Node*) malloc(sizeof(struct Node));
     newnode->data=item;
     newnode->next=NULL;
 
-    while (ptr->next!=NULL)
+    int i=0;
+    while (i<location-1)
     {
         ptr=ptr->next;
+        i++;
+
     }
+    newnode->next=ptr->next;
     ptr->next=newnode;
     
     struct Node *ptr1;
