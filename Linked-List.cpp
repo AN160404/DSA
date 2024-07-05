@@ -34,9 +34,14 @@ int main()
         ptr1=ptr1->next;
     }    
 
-    struct Node *ptr2;
+    struct Node *ptr2,*ptr;
     ptr2=head;
-    head=head->next;
+    while (ptr2->next!=NULL)
+    {
+        ptr=ptr2;
+        ptr2=ptr2->next;
+    }
+    ptr->next=NULL;
     free (ptr2);
 
     struct Node *ptr3;
@@ -46,6 +51,7 @@ int main()
         cout<<ptr3->data<<endl;
         ptr3=ptr3->next;
     }
+    
     
     return 0;
 }
