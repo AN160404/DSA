@@ -23,34 +23,10 @@ int main()
     fourth->next=fifth;
     fifth->data=4;
     fifth->next=NULL;
-
-
-    struct Node *ptr;
-    ptr=head;
-    int item,location;
-    cout<<"Enter item to be inserted: "<<endl;
-    cin>>item;
-    cout<<"Enter Location: "<<endl;
-    cin>>location;
-
-    struct Node *newnode;
-    newnode=(struct Node*) malloc(sizeof(struct Node));
-    newnode->data=item;
-    newnode->next=NULL;
-
-    int i=0;
-    while (i<location-1)
-    {
-        ptr=ptr->next;
-        i++;
-
-    }
-    newnode->next=ptr->next;
-    ptr->next=newnode;
     
     struct Node *ptr1;
     ptr1=head;
-    cout<<"New List:"<<endl;
+    cout<<"Old List:"<<endl;
 
     while (ptr1!=NULL)
     {
@@ -58,5 +34,18 @@ int main()
         ptr1=ptr1->next;
     }    
 
+    struct Node *ptr2;
+    ptr2=head;
+    head=head->next;
+    free (ptr2);
+
+    struct Node *ptr3;
+    ptr3=head;
+    while (ptr3!=NULL)
+    {
+        cout<<ptr3->data<<endl;
+        ptr3=ptr3->next;
+    }
+    
     return 0;
 }
