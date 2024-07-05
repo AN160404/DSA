@@ -34,21 +34,19 @@ int main()
         ptr1=ptr1->next;
     }    
 
-    struct Node *ptr2,*ptr;
+    struct Node *ptr2;
     ptr2=head;
 
     int i=0,loc=0;
     cout<<"Enter location:"<<endl;
     cin>>loc;
 
-    while (i<loc)
+    while (i<loc-1)
     {
-        ptr=ptr2;
         ptr2=ptr2->next;
         i++;
     }
-    ptr->next=ptr2->next;
-    free (ptr2);
+    ptr2->next=ptr2->next->next;
 
     struct Node *ptr3;
     ptr3=head;
