@@ -6,11 +6,7 @@ struct Node{
 };
 int main()
 {
-    struct Node* head;
-    struct Node* second;
-    struct Node* third;
-    struct Node* fourth;
-    struct Node* fifth;
+    struct Node* head,*second,*third,*fourth,*fifth;
     head=(struct Node*) malloc(sizeof(struct Node));
     second=(struct Node*) malloc(sizeof(struct Node));
     third=(struct Node*) malloc(sizeof(struct Node));
@@ -19,18 +15,23 @@ int main()
 
     head->data=0;
     head->next=second;
-
     second->data=1;
     second->next=third;
-
     third->data=2;
     third->next=fourth;
-
     fourth->data=3;
     fourth->next=fifth;
-
     fifth->data=4;
     fifth->next=NULL;
+
+struct Node *ptr;
+    ptr=head;
+    while (ptr!=NULL)
+    {
+        cout<<ptr->data<<endl;
+        ptr=ptr->next;
+    }
+    
 
     return 0;
 }
