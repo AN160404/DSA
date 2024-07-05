@@ -23,21 +23,33 @@ int main()
     fourth->next=fifth;
     fifth->data=4;
     fifth->next=NULL;
-    
+    cout<<"OG List:"<<endl;
     struct Node *ptr;
     ptr=head;
-
-    int item,count=0;
-    cout<<"Enter item to be searched: "<<endl;
-    cin>>item;
-
-    while (ptr!=NULL && ptr->data!=item)
+    while (ptr!=NULL)
     {
-        count++;
+        cout<<ptr->data<<endl;
         ptr=ptr->next;
     }
-    cout<<"Item: "<<ptr->data<<" present at: "<<count<<endl;
+
+    int item;
+    cout<<"Enter item to be inserted: "<<endl;
+    cin>>item;
+
+    struct Node *newnode;
+    newnode=(struct Node*) malloc(sizeof(struct Node));
+    newnode->data=item;
+    newnode->next=head;
+    head=newnode;
     
+    struct Node *ptr1;
+    ptr1=head;
+
+    while (ptr1!=NULL)
+    {
+        cout<<ptr1->data<<endl;
+        ptr1=ptr1->next;
+    }    
 
     return 0;
 }
