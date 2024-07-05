@@ -23,14 +23,20 @@ int main()
     fourth->next=fifth;
     fifth->data=4;
     fifth->next=NULL;
-
-struct Node *ptr;
+    
+    struct Node *ptr;
     ptr=head;
-    while (ptr!=NULL)
+
+    int item,count=0;
+    cout<<"Enter item to be searched: "<<endl;
+    cin>>item;
+
+    while (ptr!=NULL && ptr->data!=item)
     {
-        cout<<ptr->data<<endl;
+        count++;
         ptr=ptr->next;
     }
+    cout<<"Item: "<<ptr->data<<" present at: "<<count<<endl;
     
 
     return 0;
