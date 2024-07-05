@@ -23,15 +23,8 @@ int main()
     fourth->next=fifth;
     fifth->data=4;
     fifth->next=NULL;
-    cout<<"OG List:"<<endl;
     struct Node *ptr;
     ptr=head;
-    while (ptr!=NULL)
-    {
-        cout<<ptr->data<<endl;
-        ptr=ptr->next;
-    }
-
     int item;
     cout<<"Enter item to be inserted: "<<endl;
     cin>>item;
@@ -39,11 +32,17 @@ int main()
     struct Node *newnode;
     newnode=(struct Node*) malloc(sizeof(struct Node));
     newnode->data=item;
-    newnode->next=head;
-    head=newnode;
+    newnode->next=NULL;
+
+    while (ptr->next!=NULL)
+    {
+        ptr=ptr->next;
+    }
+    ptr->next=newnode;
     
     struct Node *ptr1;
     ptr1=head;
+    cout<<"New List:"<<endl;
 
     while (ptr1!=NULL)
     {
