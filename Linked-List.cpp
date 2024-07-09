@@ -43,23 +43,23 @@ class LinkedList{
         
     }
 
-    void deletionatposition(){
+    void deletionafterelement(){
         Node *ptr=head;
-        int pos=0;
+        int element=0;
 
-        cout<<"Enter position :"<<endl;
-        cin>>pos;
+        cout<<"Enter element :"<<endl;
+        cin>>element;
 
         if(ptr==NULL)
         {
             return ;
         }
-        for (int i = 0; i < pos; i++)
+        while(ptr->data!=element)
         {
             ptr=ptr->next;
         }
-        ptr->next->prev=ptr->prev;
-        ptr->prev->next=ptr->next;      
+        ptr->next=ptr->next->next;
+        ptr->next->next->prev=ptr;      
         
     }
 
@@ -84,7 +84,7 @@ int main()
     obj.append(5);
     cout<<"List:"<<endl;
     obj.print();
-    obj.deletionatposition();
+    obj.deletionafterelement();
         cout<<"After deletion List:"<<endl;
 
     obj.print();
