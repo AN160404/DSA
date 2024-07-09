@@ -39,20 +39,39 @@ class LinkedList{
         
     }
     
-    //Search
-    void search()
+    //Insertion at beginning
+    void Insertionatbeginning()
     {
-        int item,count=0;
-        cout<<"Enter item to be searched:"<<endl;
+        int item;
+        cout<<"Enter item to be inserted:"<<endl;
         cin>>item;
-        Node *ptr=head;
-        while (ptr->data!=item)
+
+        Node *newN=new Node(item);
+        newN->data=item;
+        if (head==NULL)
         {
-            ptr=ptr->next;
-            count++;
+            newN->next=newN->prev;
+            head=newN;
+            return;
         }
-        cout<<"Item: "<<ptr->data<<" found at: "<<count<<endl;
-        return ;        
+        else{
+            newN->prev=NULL;
+            newN->next=head;
+            head->prev=newN;
+            head=newN;
+            return;
+        }       
+    }
+
+    void print()
+    {
+        Node *ptr=head;
+        while (ptr!=NULL)
+        {
+            cout<<ptr->data<<endl;
+            ptr=ptr->next;
+        }
+        return;        
     }
 };
 int main()
@@ -64,7 +83,8 @@ int main()
     obj.append(4);
     obj.append(5);
 
+    obj.Insertionatbeginning();
     cout<<"List:"<<endl;
-    obj.search();
+    obj.print();
     return 0;
 }
