@@ -39,20 +39,20 @@ class LinkedList{
         
     }
     
-    //Reverse Traversal
-    void print()
+    //Search
+    void search()
     {
+        int item,count=0;
+        cout<<"Enter item to be searched:"<<endl;
+        cin>>item;
         Node *ptr=head;
-        while (ptr->next!=NULL)
+        while (ptr->data!=item)
         {
             ptr=ptr->next;
+            count++;
         }
-        while (ptr!=NULL)
-        {
-            cout<<ptr->data<<endl;
-            ptr=ptr->prev;
-        }
-                
+        cout<<"Item: "<<ptr->data<<" found at: "<<count<<endl;
+        return ;        
     }
 };
 int main()
@@ -65,6 +65,6 @@ int main()
     obj.append(5);
 
     cout<<"List:"<<endl;
-    obj.print();
+    obj.search();
     return 0;
 }
