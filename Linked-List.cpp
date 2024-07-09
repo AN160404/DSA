@@ -42,52 +42,12 @@ class LinkedList{
         tail=newNode;
         
     }
-    
-    //Insertion at position
-    void Insertionatposition()
-    {
-        int item=0,pos=0,count=0;
-        cout<<"Enter item to be inserted:"<<endl;
-        cin>>item;
 
-        cout<<"Enter position:"<<endl;
-        cin>>pos;
-
-        Node *newN=new Node(item);
+    void deletionatbeginning(){
         Node *ptr=head;
-
-        newN->data=item;
-        //At beginning
-        if (pos==1)
-        {
-            newN->prev=NULL;
-            newN->next=head;
-            head->prev=newN;
-            head=newN;
-            return;
-        }
-
-        while(count<pos)
-        {
-            ptr=ptr->next;
-            count++;
-        }    
-        //At end
-        if(ptr->next==NULL){
-            newN->next=NULL;
-            newN->prev=tail;
-            tail->next=newN;
-            tail=newN;
-            return;
-        }
-        //At position
-        else{
-            newN->prev=ptr;
-            newN->next=ptr->next;
-            newN->next->prev=newN;
-            ptr->next=newN;
-            return;
-        }
+        int value=ptr->data;
+        ptr->next->prev=NULL;
+        head=ptr->next;
     }
 
     void print()
@@ -109,9 +69,12 @@ int main()
     obj.append(3);
     obj.append(4);
     obj.append(5);
-
-    obj.Insertionatposition();
     cout<<"List:"<<endl;
     obj.print();
+    obj.deletionatbeginning();
+        cout<<"After deletion List:"<<endl;
+
+    obj.print();
+
     return 0;
 }
