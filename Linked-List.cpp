@@ -67,7 +67,7 @@ class LinkedList{
             return;
         }
 
-        while(count<pos-1)
+        while(count<pos-2)
         {
             ptr=ptr->next;
             count++;
