@@ -39,17 +39,20 @@ class LinkedList{
         
     }
     
-    //Traversal
+    //Reverse Traversal
     void print()
     {
         Node *ptr=head;
+        while (ptr->next!=NULL)
+        {
+            ptr=ptr->next;
+        }
         while (ptr!=NULL)
         {
             cout<<ptr->data<<endl;
-            ptr=ptr->next;
+            ptr=ptr->prev;
         }
-        cout<<endl;
-        
+                
     }
 };
 int main()
