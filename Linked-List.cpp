@@ -43,23 +43,32 @@ class LinkedList{
         
     }
 
-    void deletionafterelement(){
+    void deletionbeforeelement(){
         Node *ptr=head;
         int element=0;
 
         cout<<"Enter element :"<<endl;
         cin>>element;
-
+        //Check for empty list
         if(ptr==NULL)
         {
             return ;
         }
+        
         while(ptr->data!=element)
         {
             ptr=ptr->next;
         }
-        ptr->next=ptr->next->next;
-        ptr->next->next->prev=ptr;      
+        //Check for head
+        if(ptr->prev==head){
+            head=ptr;
+            ptr->prev=NULL;
+        }
+        else{
+        ptr->prev->prev->next=ptr;      
+        ptr->prev=ptr->prev->prev;
+        }
+
         
     }
 
@@ -84,7 +93,7 @@ int main()
     obj.append(5);
     cout<<"List:"<<endl;
     obj.print();
-    obj.deletionafterelement();
+    obj.deletionbeforeelement();
         cout<<"After deletion List:"<<endl;
 
     obj.print();
