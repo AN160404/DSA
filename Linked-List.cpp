@@ -18,15 +18,18 @@ class Node
 
 class LinkedList{
     Node *head;
+    Node *tail;
     public:
     LinkedList()
     {
         head=NULL;
+        tail=NULL;
     }
     void append(int data){
         Node *newNode=new Node(data);
         if (head==NULL){
             head=newNode;
+            tail=newNode;
             return ;
         }
         Node *temp=head;
@@ -36,11 +39,12 @@ class LinkedList{
         }
         temp->next=newNode;
         newNode->prev=temp;
+        tail=newNode;
         
     }
     
-    //Insertion at beginning
-    void Insertionatbeginning()
+    //Insertion at End
+    void Insertionatend()
     {
         int item;
         cout<<"Enter item to be inserted:"<<endl;
@@ -55,10 +59,10 @@ class LinkedList{
             return;
         }
         else{
-            newN->prev=NULL;
-            newN->next=head;
-            head->prev=newN;
-            head=newN;
+            newN->next=NULL;
+            newN->prev=tail;
+            tail->next=newN;
+            tail=newN;
             return;
         }       
     }
@@ -83,7 +87,7 @@ int main()
     obj.append(4);
     obj.append(5);
 
-    obj.Insertionatbeginning();
+    obj.Insertionatend();
     cout<<"List:"<<endl;
     obj.print();
     return 0;
