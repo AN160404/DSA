@@ -43,11 +43,11 @@ class LinkedList{
         
     }
 
-    void deletionatbeginning(){
-        Node *ptr=head;
+    void deletionatend(){
+        Node *ptr=tail;
         int value=ptr->data;
-        ptr->next->prev=NULL;
-        head=ptr->next;
+        ptr->prev->next=NULL;
+        tail=ptr->next;
     }
 
     void print()
@@ -71,7 +71,7 @@ int main()
     obj.append(5);
     cout<<"List:"<<endl;
     obj.print();
-    obj.deletionatbeginning();
+    obj.deletionatend();
         cout<<"After deletion List:"<<endl;
 
     obj.print();
