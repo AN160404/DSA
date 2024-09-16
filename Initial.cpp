@@ -1,31 +1,24 @@
-//Find the max consecutive 1s in an array
+//Find Numbers with Even Number of Digits
 #include <iostream>
 #include <vector>
 using namespace std;
 class Solution {
 public:
-    int findMaxConsecutiveOnes(vector<int>& nums) {
-        int maxCount=0;
-        int count=0;
-        for(int num:nums)
+    int findNumbers(vector<int>& nums) {
+    int count=0,numcount=0;
+    for(int num:nums)
+    {
+        while(num>0)
         {
-            if(num==1){
-                count++;
-            }
-            else
-            {
-                if(count>maxCount)
-                {
-                    maxCount=count;
-                    
-                }
-                count=0;
-            }
+            num=num/10;
+            count++;
         }
-        if(count>maxCount)
-                {
-                    maxCount=count;
-                }
-        return maxCount;
+        if(count%2==0)
+        {
+            numcount++;
+        }
+        count=0;
+    }
+    return numcount;
     }
 };
