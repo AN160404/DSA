@@ -1,15 +1,19 @@
 #include <iostream>
 using namespace std;
 
-int main(){
-    int decnum=0;
-    int binnum=1010;
-    int i=1,rem=0;
-    while(binnum>0){
-        rem=binnum%10;
-        decnum=decnum+rem*i;
-        binnum=binnum/10;
-        i=i*2;
+int findComplement(int num) {
+        int result = 0;
+        int power = 1;
+        while (num > 0) {
+            int bit = num % 2;
+            num /= 2;
+            result += (1 - bit) * power;
+            power *= 2;
+        }
+        return result;
     }
-    cout<<decnum<<endl;
+
+int main(){
+    int result=findComplement(5);
+    cout<<result<<endl;
 }
