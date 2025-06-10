@@ -2,14 +2,14 @@
 using namespace std;
 
 int main(){
-    int decnum=10;
-    int binnum=0;
+    int decnum=0;
+    int binnum=1010;
     int i=1,rem=0;
-    while(decnum>0){
-        rem=decnum%2;
-        decnum=decnum/2;
-        binnum=binnum+rem*i;
-        i=i*10;
+    while(binnum>0){
+        rem=binnum%10;
+        decnum=decnum+rem*i;
+        binnum=binnum/10;
+        i=i*2;
     }
-    cout<<binnum<<endl;
+    cout<<decnum<<endl;
 }
