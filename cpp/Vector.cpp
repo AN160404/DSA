@@ -1,12 +1,15 @@
 #include<iostream>
 #include<vector>
 using namespace std;
+//Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
+
 int main(){
-    vector<int> nums={1,2,3,2,3};
-    int result=0;
+    vector<int> nums={1,2,3,4,5};
+    int n=3;
     for(int val:nums){
-        result^=val;
+        if(n==val){
+            cout<<n<<" is present"<<endl;
+        }
     }
-    cout<<result<<endl;
     return 0;
 }
