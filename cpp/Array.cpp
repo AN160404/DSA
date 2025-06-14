@@ -1,20 +1,18 @@
 #include <iostream>
 using namespace std;
-//Unique Values in an array
+//Intersection of 2 Arrays
 int main(){
-    int arr[10]={15,2,3,4,5,6,2,8,3,2};
-    int len=sizeof(arr)/sizeof(arr[0]);
-    for (int i = 0; i < len; i++)
+    int arr[5]={1,2,3,4,5};
+    int arr2[4]={3,4,6,5};
+    int len1=sizeof(arr)/sizeof(arr[0]);
+    int len2=sizeof(arr2)/sizeof(arr2[0]);
+    int len=len1+len2;
+    for (int i = 0; i < len1; i++)
     {
-        bool isunique=true;
-        for(int j=0;j<len;j++){
-            if(i!=j && arr[i]==arr[j]){  //element at different positions are same
-                isunique=false;
+        for(int j=0;j<len2;j++){
+            if(arr[i]==arr2[j]){  
+                cout<<arr[i]<<endl;
             }
-
-        }
-        if(isunique==true){
-            cout<<arr[i]<<endl;
         }
     }
     return 0;
