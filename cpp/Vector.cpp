@@ -2,9 +2,11 @@
 #include<vector>
 using namespace std;
 int main(){
-    vector<int> vec(3,1);
-    for(int i:vec){
-        cout<<i<<endl;
+    vector<int> nums={1,2,3,2,3};
+    int result=0;
+    for(int val:nums){
+        result^=val;
     }
+    cout<<result<<endl;
     return 0;
 }
