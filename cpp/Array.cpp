@@ -1,19 +1,34 @@
 #include <iostream>
+#include <vector>
 using namespace std;
-//Intersection of 2 Arrays
-int main(){
-    int arr[5]={1,2,3,4,5};
-    int arr2[4]={3,4,6,5};
-    int len1=sizeof(arr)/sizeof(arr[0]);
-    int len2=sizeof(arr2)/sizeof(arr2[0]);
-    int len=len1+len2;
-    for (int i = 0; i < len1; i++)
-    {
-        for(int j=0;j<len2;j++){
-            if(arr[i]==arr2[j]){  
-                cout<<arr[i]<<endl;
-            }
+
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        
+        int start=0,end=nums.size()-1;
+
+        while(start<=end){
+        int mid=start+(end-start)/2;
+        if(target==nums[mid]){
+            return mid;
         }
+        else if(target>nums[mid]){
+            start=mid+1;
+        }
+        else{
+            end=mid-1;
+        }
+        }
+        return -1;
     }
+};
+
+int main()
+{
+    vector<int> vec={1,2,3,4,5,6,7,8,9};
+    Solution obj;
+    int result=obj.search(vec,6);
+    cout<<"Position: "<<result<<endl;
     return 0;
 }
