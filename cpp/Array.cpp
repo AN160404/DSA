@@ -2,15 +2,23 @@
 using namespace std;
 
 int main(){
-    int arr[10]={12,33,4,5,6,12,34,32,2,1};
+    int arr[5]={1,2,3,4,5};
     int len=sizeof(arr)/sizeof(arr[0]);
     int num=5;
+    int temp=0;
+    int start=0,end=len-1;
 
-    for (int i = 1; i <len ;i++){
-        if(num==arr[i]){
-            cout<<i<<" is the position of the element."<<endl; 
-        }
+    while (start<end){
+        temp=arr[start];
+        arr[start]=arr[end];
+        arr[end]=temp;
+        start++;
+        end--;
     }
-
+    for (int i = 0; i < len; i++)
+    {
+        cout<<arr[i]<<endl;
+    }
+    
     return 0;
 }
