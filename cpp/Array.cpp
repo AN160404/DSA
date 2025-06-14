@@ -1,31 +1,21 @@
 #include <iostream>
 using namespace std;
-//Swap max and min of an array
+//Unique Values in an array
 int main(){
-    int arr[5]={15,2,3,4,5};
+    int arr[10]={15,2,3,4,5,6,2,8,3,2};
     int len=sizeof(arr)/sizeof(arr[0]);
-    int smallest=INT16_MAX;
-    int largest=INT16_MIN;
-    int pos1=0,pos2=0;
     for (int i = 0; i < len; i++)
     {
-        if(smallest>arr[i]){
-            smallest=arr[i];
-            pos1=i;
+        bool isunique=true;
+        for(int j=0;j<len;j++){
+            if(i!=j && arr[i]==arr[j]){  //element at different positions are same
+                isunique=false;
+            }
 
         }
-        if(largest<arr[i]){
-            largest=arr[i];
-            pos2=i;
+        if(isunique==true){
+            cout<<arr[i]<<endl;
         }
     }
-    arr[pos1]=largest;
-    arr[pos2]=smallest;
-
-    for (int i = 0; i < len; i++)
-    {
-        cout<<arr[i]<<endl;
-    }
-    
     return 0;
 }
