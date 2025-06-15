@@ -6,15 +6,19 @@ int main(){
     int count=vec.size();
     int target=9;
     vector<int> element;
-    for (int i = 0; i < count; i++)
-    {
-        for (int j = i+1; j < count; j++)
-        {
-            if(vec[i]+vec[j] ==target)
-            {
-                element.push_back(vec[i]);
-                element.push_back(vec[j]);
-            }
+    int i=0,j=count-1;
+    while(i<j){
+        int sum=vec[i]+vec[j];
+        if(sum>target){
+            j--;
+        }
+        else if(sum<target){
+            i++;
+        }
+        else if(sum==target){
+            element.push_back(vec[i]);
+            element.push_back(vec[j]);
+            break;
         }
     }
     cout<<element[0]<<" "<<element[1]<<endl;
