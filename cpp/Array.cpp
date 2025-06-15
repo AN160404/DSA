@@ -5,17 +5,17 @@ using namespace std;
 int main(){
     vector<int> vec={1,2,3,4,5};
     int count=vec.size();
+    int maxsum=INT16_MIN;
     for (int i = 0; i < count; i++)
     {
+        int currsum=0;
         for (int j = i; j < count; j++)
         {
-            for (int k = i; k <= j; k++)
-            {
-                cout<<vec[k];
-            }
-            cout<<" ";
+            currsum+=vec[j];
+            maxsum=max(maxsum,currsum);
         }
-        cout<<endl;
     }
+    cout<<maxsum<<endl;
+
     
 }
