@@ -2,25 +2,36 @@
 #include <vector>
 using namespace std;
 int main(){
-    vector<int> vec={1,2,3,4,5,11};
+    vector<int> vec={1,2,0,2,1};
     int count=vec.size();
-    int target=9;
-    vector<int> element;
-    int i=0,j=count-1;
-    while(i<j){
-        int sum=vec[i]+vec[j];
-        if(sum>target){
-            j--;
+    int maj=0;
+    bool ismaj=true;
+    for (int i = 0; i < count; i++)
+    {
+        int num=0;
+        for (int j = 0; j < count; j++)
+        {
+            if(vec[i]==vec[j])
+            {
+                num++;
+                if(num>count/2){
+                    ismaj=true;
+                    maj=vec[i];
+                }
+                else{
+                    ismaj=false;
+                }
+            }
         }
-        else if(sum<target){
-            i++;
-        }
-        else if(sum==target){
-            element.push_back(vec[i]);
-            element.push_back(vec[j]);
-            break;
-        }
+        
     }
-    cout<<element[0]<<" "<<element[1]<<endl;
+    if (ismaj)
+    {
+        cout<<"Majority Element: "<<maj<<endl;
+    }
+    else{
+        cout<<"No Majority Element exists"<<endl;
+    }
+    
     return 0; 
 }
