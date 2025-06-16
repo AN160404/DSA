@@ -7,34 +7,21 @@ int main(){
     int count=nums.size();
     int maj=nums[0];
     bool ismaj=true;
-    int freq=1;
-    sort(nums.begin(),nums.end());
+    int freq=0;
     for (int i = 0; i < count; i++)
     {
-        if (nums[i]==nums[i-1])
+        if (freq==0)
         {
+            maj=nums[i];
+        }
+        if(nums[i]==maj){
             freq++;
         }
         else{
-            freq=1;
-            maj=nums[i];
-        }
-        if(freq>count/2){
-            maj=nums[i];
-            ismaj=true;
-        }
-        else{
-            ismaj=false;
+            freq--;
         }
     }
-    
-    if (ismaj)
-    {
-        cout<<"Majority Element: "<<maj<<endl;
-    }
-    else{
-        cout<<"No Majority Element exists"<<endl;
-    }
+    cout<<"Majority Element: "<<maj<<endl;
     
     return 0; 
 }
