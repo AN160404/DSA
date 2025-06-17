@@ -3,25 +3,19 @@
 #include <algorithm>
 using namespace std;
 int main(){
-    vector<int> nums={1,2,2,2,1};
-    int count=nums.size();
-    int maj=nums[0];
-    bool ismaj=true;
-    int freq=0;
-    for (int i = 0; i < count; i++)
-    {
-        if (freq==0)
-        {
-            maj=nums[i];
+    vector<int> prices={7,1,5,3,6,4};
+    int size=prices.size();
+        int bestbuy=prices[0];
+        int pos=0,profit=0;
+        for(int i=0;i<size;i++){
+            if(prices[i]>bestbuy){
+                profit=max(profit,prices[i]-bestbuy);    //profit when other values are greater than bestbuy
+            }
+            bestbuy=min(bestbuy,prices[i]); //minimizing the bestbuy
         }
-        if(nums[i]==maj){
-            freq++;
+
+        if(profit>0){
+            cout<< profit<<endl;
         }
-        else{
-            freq--;
-        }
-    }
-    cout<<"Majority Element: "<<maj<<endl;
-    
-    return 0; 
+        return 0;
 }
