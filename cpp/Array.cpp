@@ -3,19 +3,16 @@
 #include <algorithm>
 using namespace std;
 int main(){
-    vector<int> prices={7,1,5,3,6,4};
-    int size=prices.size();
-        int bestbuy=prices[0];
-        int pos=0,profit=0;
+    vector<int> height={1,8,6,2,5,4,8,3,7};
+    int size=height.size();
+        int maxwater=0;
         for(int i=0;i<size;i++){
-            if(prices[i]>bestbuy){
-                profit=max(profit,prices[i]-bestbuy);    //profit when other values are greater than bestbuy
+            for(int j=i;j<size;j++){
+                int w=j-i;
+                int h=min(height[i],height[j]);
+                maxwater=max(maxwater,w*h);
             }
-            bestbuy=min(bestbuy,prices[i]); //minimizing the bestbuy
+            
         }
-
-        if(profit>0){
-            cout<< profit<<endl;
-        }
-        return 0;
+    cout<<maxwater<<endl;
 }
