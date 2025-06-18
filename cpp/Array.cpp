@@ -3,16 +3,21 @@
 #include <algorithm>
 using namespace std;
 int main(){
-    vector<int> height={1,8,6,2,5,4,8,3,7};
-    int size=height.size();
-    int maxwater=0;
-    int l=0,r=size-1;
-    while(l<r){
-        int w=r-l;
-        int h=min(height[l],height[r]);
-        int area=w*h;
-        maxwater=max(maxwater,area);
-        height[l]<height[r] ? l++ : r--;
+    vector<int> nums={1,2,3,4};
+    int size=nums.size();
+    vector<int> ans={};
+    for(int i=0;i<size;i++){
+        int prod=1;
+        for(int j=0;j<size;j++){
+            if(i!=j){
+                prod=prod*nums[j];
+            }
+        }
+        ans.push_back(prod);
     }
-    cout<<maxwater<<endl;
+    for (int i = 0; i < size; i++)
+    {
+        cout<<ans[i]<<endl;
+    }
+    
 }
