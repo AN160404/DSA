@@ -3,22 +3,26 @@
 #include <algorithm>
 using namespace std;
 
-int isValid(vector<int> &arr,int size,int n,int mid){
-    int student=1,pagecount=0;
-    for (int i = 0; i < size; i++)
+//Given are N boards of length of each given in the form of array and M painters, such that each painter takes 1 unit of time to paint 1 unit of the board.
+//The task is to find the minimum time to paint all boards under the conastrains that any painter will only pain continuous sections of board.
+
+
+bool isValid(vector<int> nums,int n,int m,int mid){
+    int painters=1,time=0;
+    for (int i = 0; i < n; i++)
     {
-        if(arr[i]>mid){
+        if(nums[i]>mid){
             return false;
         }
-        if(pagecount+arr[i]<=mid){
-            pagecount+=arr[i]; //Adding until it's coming less
+        if(time+nums[i]<=mid){
+            time=time+nums[i];
         }
         else{
-            student++; //Increasing the student count just when the page count exceeds the mid or maxallowed
-            pagecount=arr[i]; //Adding the page that couldn't be added into the last student.
+            painters++;
+            time=nums[i];
         }
     }
-    if(student>n){
+    if(painters>m){
         return false;
     }
     else{
@@ -26,20 +30,18 @@ int isValid(vector<int> &arr,int size,int n,int mid){
     }
     
 }
-
 int main(){
-    vector<int> arr={2,1,3,4};
-    int size=arr.size();
-    int n=2;
+    vector<int> nums={40,30,10,20};
+    int n=4,m=2;
     int st=0,end=0;
     int ans=0;
-    for(int val:arr){
+    for(int val:nums){
+        st=max(st,val);
         end+=val;
     }
-    int mid=0;
     while(st<=end){
-        mid=st+(end-st)/2;
-        if(isValid(arr,size,n,mid)){
+        int mid=st+(end-st)/2;
+        if(isValid(nums,n,m,mid)){
             ans=mid;
             end=mid-1;
         }
@@ -48,8 +50,7 @@ int main(){
         }
     }
     cout<<ans;
-
-        return 0;
+    return 0;
     
     
 }
