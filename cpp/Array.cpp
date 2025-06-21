@@ -5,29 +5,33 @@ using namespace std;
 
 
 int main(){
-    vector<int> nums={2,0,1,1,0,1,2,0,0};
+    vector<int> nums={2,0,1,1,0,1,2,0,0}; // Boundaries: 0 -> 0 to low-1 | 1 -> low to mid-1 | 2 -> high-1 to size-1
     int size=nums.size();
-        int zero=0,two=0,one=0;
-        for(int i=0;i<size;i++){
-            if(nums[i]==0){
-                zero++;
+        int size=nums.size();
+        int low=0,mid=0,high=size-1;  
+        while(mid<=high){
+            if(nums[mid]==0){
+                // Swapping nums[mid] and nums[low]
+                int temp=nums[mid];
+                nums[mid]=nums[low];
+                nums[low]=temp;
+                // Inc low partition and mid partition in order to maintain boundaries
+                low++;
+                mid++;
             }
-            else if(nums[i]==1){
-                one++;
+            else if(nums[mid]==1){
+                mid++;
             }
-            else if(nums[i]==2){
-                two++;
+            else{
+                int temp=nums[mid];
+                nums[mid]=nums[high];
+                nums[high]=temp;
+                high--;
             }
         }
-        int idx=0;
-        for(int i=0;i<zero;i++){
-            nums[idx++]=0;
-        }
-        for(int i=0;i<one;i++){
-            nums[idx++]=1;
-        }
-        for(int i=0;i<two;i++){
-            nums[idx++]=2;
+
+        for(int val:nums){
+            cout<<val<<endl;
         }
     return 0;
     
