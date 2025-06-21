@@ -3,50 +3,36 @@
 #include <algorithm>
 using namespace std;
 
-//Given are N boards of length of each given in the form of array and M painters, such that each painter takes 1 unit of time to paint 1 unit of the board.
-//The task is to find the minimum time to paint all boards under the conastrains that any painter will only pain continuous sections of board.
+// Assign C cows to N stalls such that minimum distance between them is largest possible. Return largest minimum distance.
 
 
-bool isValid(vector<int> nums,int n,int m,int mid){
-    int painters=1,time=0;
-    for (int i = 0; i < n; i++)
-    {
-        if(nums[i]>mid){
-            return false;
+bool isValid(vector<int> nums,int N,int C,int mid){
+    int cow=1,pos=nums[0];
+    for(int i=1;i<N;i++){
+        if(nums[i]-pos>=mid){ // If the distance between current stall and last assigned stall is greater than or equal to mid
+            cow++; // Assign cow to this stall
+            pos=nums[i]; // Update the position of last assigned stall
         }
-        if(time+nums[i]<=mid){
-            time=time+nums[i];
-        }
-        else{
-            painters++;
-            time=nums[i];
-        }
+        if(cow==C) return true; // If we have assigned all cows, return true
     }
-    if(painters>m){
-        return false;
-    }
-    else{
-        return true;
-    }
-    
+    return false;
 }
+
 int main(){
-    vector<int> nums={40,30,10,20};
-    int n=4,m=2;
-    int st=0,end=0;
+    vector<int> nums={1,2,8,4,9};
+    sort(nums.begin(),nums.end());
+    int N=5,C=3;
+    int st=1,end=nums[N-1]-nums[0];
+
     int ans=0;
-    for(int val:nums){
-        st=max(st,val);
-        end+=val;
-    }
     while(st<=end){
         int mid=st+(end-st)/2;
-        if(isValid(nums,n,m,mid)){
+        if(isValid(nums,N,C,mid)){ //We can get more smaller values than mid
             ans=mid;
-            end=mid-1;
+            st=mid+1; //
         }
-        else{
-            st=mid+1;
+        else{ // Not Valid -- we can't get more smaller value than the mid
+            end=mid-1;
         }
     }
     cout<<ans;
