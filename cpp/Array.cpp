@@ -5,34 +5,34 @@ using namespace std;
 
 
 int main(){
-    vector<int> nums={2,0,1,1,0,1,2,0,0}; // Boundaries: 0 -> 0 to low-1 | 1 -> low to mid-1 | 2 -> high-1 to size-1
-    int size=nums.size();
-        int size=nums.size();
-        int low=0,mid=0,high=size-1;  
-        while(mid<=high){
-            if(nums[mid]==0){
-                // Swapping nums[mid] and nums[low]
-                int temp=nums[mid];
-                nums[mid]=nums[low];
-                nums[low]=temp;
-                // Inc low partition and mid partition in order to maintain boundaries
-                low++;
-                mid++;
-            }
-            else if(nums[mid]==1){
-                mid++;
-            }
-            else{
-                int temp=nums[mid];
-                nums[mid]=nums[high];
-                nums[high]=temp;
-                high--;
+    vector<int> nums1={1,2,3,0,0,0}; 
+    vector<int> nums2={2,5,6};
+    int m=3,n=3;
+        
+    int i=m-1,j=n-1,k=m+n-1;
+    while(i>=0 && j>=0){
+        if(nums1[i]>nums2[j]){
+            nums1[k]=nums1[i];
+            k--;
+            i--;
+        }
+        else{
+            nums1[k]=nums2[j];
+            k--;
+            j--;
+        }
+        if(i<0){
+            while(j>=0){
+                nums1[k]=nums2[j];
+                j--;
+                k--;
             }
         }
-
-        for(int val:nums){
-            cout<<val<<endl;
-        }
+    }
+    
+    for(int val:nums1){
+        cout<<val<<endl;
+    }
     return 0;
     
 }
