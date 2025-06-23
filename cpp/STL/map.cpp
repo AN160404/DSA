@@ -2,16 +2,21 @@
 #include <map>
 using namespace std;
 
+// Multi-Map -- Same values can be added into this
+// m[key]=value -- notation is not allowed in this
+
 int main(){
-    map<string,int> m;
-    m["B"]=20;
-    m["A"]=10;
+    multimap<string,int> m;
+    
+    m.emplace("A",20);
+    m.emplace("A",20);
+    m.emplace("A",20);
+
 
     for(auto val:m){
         cout<<val.first<<":"<<val.second<<endl;
     }
 
-    // It sorts according to the key
 
     return 0;
 }
