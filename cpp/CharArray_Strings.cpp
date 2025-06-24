@@ -3,39 +3,18 @@
 
 using namespace std;
 
-bool isAlphanumeric(char ch){
-    if (ch >= '0' && ch <= '9' || tolower(ch) >= 'a' && tolower(ch) <= 'z')
-    {
-        return true;
-    }
-    return false;
-}
 int main()
 {
-    string s="A man, a plan, a canal: Panama";
-    int i = 0, j = s.length() - 1;
+    string s = "daabcbaabcbc";
+    string part = "abc";
+    int len1 = s.length();
+    int len2 = part.length();
 
-    while (i < j)
+    while (s.length() > 0 && s.find(part) < s.length()) // until the string is greater than 0 and the position is always less than length of the string.
     {
-        if (!isAlphanumeric(s[i]))
-        {
-            i++;
-            continue;
-        }
-        if (!isAlphanumeric(s[j]))
-        {
-            j--;
-            continue;
-        }
-        if (tolower(s[i]) != tolower(s[j]))
-        {
-            cout<<"Not Palindrome"<<endl;
-        }
-
-        i++;
-        j--;
+        int pos = s.find(part);
+        s.erase(pos, len2);
     }
-    cout<<"Palindrome"<<endl;
+    cout << s << endl;
     return 0;
 }
-
