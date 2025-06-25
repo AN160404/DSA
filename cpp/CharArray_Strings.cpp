@@ -1,29 +1,43 @@
 #include <iostream>
 #include <string.h>
+#include <vector>
 #include <algorithm>
 using namespace std;
 
 int main()
 {
-    string s = "the sky is blue";
-    reverse(s.begin(), s.end()); // reversing the whole line
-    string ans = "";
-    int n = s.length();
+    vector<char> chars = {'a', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b'};
+    int n = chars.size();
+    int idx = 0;
     for (int i = 0; i < n; i++)
-    { // reversing individual words
-        string word = "";
-        while (s[i] != ' ' && i < n)
+    {
+        char ch = chars[i];
+        int count = 0;
+
+        while (i < n && chars[i] == ch)
         {
-            word += s[i];
+            count++;
             i++;
         }
-        reverse(word.begin(), word.end());
-        if (word.length() > 0)
-        { // No adding blank space for already existing spaces
-            ans = ans + " " + word;
+
+        if (count == 1)
+        {
+            chars[idx++] = ch;
         }
+
+        else
+        {
+            chars[idx++] = ch;
+            string ct = to_string(count);
+            for (char ch : ct)
+            {
+                chars[idx++] = ch;
+            }
+        }
+        i--;
     }
-    cout<<ans<<endl;
+    chars.resize(idx);   // Resizing it according to idx
+    cout << chars.size() << endl;
 
     return 0;
 }
