@@ -2,19 +2,42 @@
 #include <string.h>
 
 using namespace std;
-
+bool isSame(int freq[],int windfreq[]){
+    for(int i=0;i<26;i++){
+        if(freq[i]!=windfreq[i]){
+            return false;
+        }
+    }
+    return true;
+}
 int main()
 {
-    string s = "daabcbaabcbc";
-    string part = "abc";
-    int len1 = s.length();
-    int len2 = part.length();
-
-    while (s.length() > 0 && s.find(part) < s.length()) // until the string is greater than 0 and the position is always less than length of the string.
-    {
-        int pos = s.find(part);
-        s.erase(pos, len2);
+    string s1 = "ab";
+    string s2= "eidbaooo";
+    
+    // Storing the frequency of s1 in another array using hash table concept
+    int freq[26]={0};
+    for(int i=0;i<s1.length();i++){
+        freq[s1[i]-'a']++;
     }
-    cout << s << endl;
+
+    int windsize=s1.length();
+
+    for(int i=0;i<s2.length();i++){
+        int windIdx=0, idx=i;
+
+        int windfreq[26]={0};
+        while(idx<s2.length() && windsize>windIdx){
+            windfreq[s2[idx]-'a']++; // Storing all the values of s2 in hash table;
+            windIdx++;
+            idx++;
+        }
+
+        // Comparing the frequencies of s1 in s2
+        if(isSame(freq,windfreq)){
+            cout<<"exists"<<endl;
+        }
+    }
+
     return 0;
 }
