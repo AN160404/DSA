@@ -1,43 +1,29 @@
 #include <iostream>
 #include <string.h>
-
+#include <algorithm>
 using namespace std;
-bool isSame(int freq[],int windfreq[]){
-    for(int i=0;i<26;i++){
-        if(freq[i]!=windfreq[i]){
-            return false;
-        }
-    }
-    return true;
-}
+
 int main()
 {
-    string s1 = "ab";
-    string s2= "eidbaooo";
-    
-    // Storing the frequency of s1 in another array using hash table concept
-    int freq[26]={0};
-    for(int i=0;i<s1.length();i++){
-        freq[s1[i]-'a']++;
-    }
-
-    int windsize=s1.length();
-
-    for(int i=0;i<s2.length();i++){
-        int windIdx=0, idx=i;
-
-        int windfreq[26]={0};
-        while(idx<s2.length() && windsize>windIdx){
-            windfreq[s2[idx]-'a']++; // Storing all the values of s2 in hash table;
-            windIdx++;
-            idx++;
+    string s = "the sky is blue";
+    reverse(s.begin(), s.end()); // reversing the whole line
+    string ans = "";
+    int n = s.length();
+    for (int i = 0; i < n; i++)
+    { // reversing individual words
+        string word = "";
+        while (s[i] != ' ' && i < n)
+        {
+            word += s[i];
+            i++;
         }
-
-        // Comparing the frequencies of s1 in s2
-        if(isSame(freq,windfreq)){
-            cout<<"exists"<<endl;
+        reverse(word.begin(), word.end());
+        if (word.length() > 0)
+        { // No adding blank space for already existing spaces
+            ans = ans + " " + word;
         }
     }
+    cout<<ans<<endl;
 
     return 0;
 }
