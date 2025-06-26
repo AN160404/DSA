@@ -1,29 +1,22 @@
 #include <iostream>
 #include <math.h>
 #include <vector>
+#include <climits>
 using namespace std;
 
 int main()
 {
-    int x=20,y=28;
-    int a=x,b=y;
-    while(a>0 && b>0){
-        if(a>b){
-            a=a%b;
+    int num=20801;
+    int temp=num;
+    int newnum=0;
+    while(temp!=0){
+        if(newnum<INT_MIN/10 || newnum>INT_MAX/10){
+            return 0;
         }
-        else{
-            b=b%a;
-        }
-    }  
-    int gcd=1;
-    if(a==0){
-        gcd=b;
+        long rem=temp%10;
+        newnum=newnum*10+rem;
+        temp/=10;
     }
-    else{
-        gcd=a;
-    }
-    
-    int lcm=(x*y)/gcd;
-    cout<<lcm;
+    cout<<newnum;
     return 0;
 }
