@@ -1,26 +1,26 @@
 #include <iostream>
 #include <algorithm>
-
+#include <vector>
 using namespace std;
 
 int main()
 {
-    int arr[4][4] = {
+    vector<vector<int>> arr= {
         {1, 2, 3, 4},
         {5, 6, 7, 8},
         {9, 10, 11, 12},
         {13, 14, 15, 16}};
 
-    int sum = 0;
-    int n = 4;
-    for (int i = 0; i < n; i++)
+    // int row=arr.size();  Row size
+    // int col=arr[i].size(); Col size
+
+    for (int i = 0; i < arr.size(); i++)
     {
-        sum += arr[i][i];
-        if (i != n - 1 - i)
+        for (int j = 0; j < arr[i].size(); j++)
         {
-            sum += arr[i][n - 1 - i];
+            cout<<arr[i][j]<<" ";
         }
+        cout<<endl;
     }
-    cout << sum << endl;
-    ;
+    
 }
