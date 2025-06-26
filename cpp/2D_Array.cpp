@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -8,21 +9,18 @@ int main(){
     };
     pair<int,int> p;
 
-    int num=0;
-    cout<<"Enter number ot be found:"<<endl;
-    cin>>num;
+    int maximum=0;
 
     for (int i = 0; i < 3; i++)
     {
+        int sum=0;
         for (int j = 0; j < 3; j++)
         {
-            if(arr[i][j]==num){
-                p.first=i;
-                p.second=j;
-            }
+            sum+=arr[i][j];
         }
+        maximum=max(maximum,sum);
         
     }
-    cout<<p.first<<","<<p.second<<endl;
+    cout<<maximum<<endl;;
     
 }
