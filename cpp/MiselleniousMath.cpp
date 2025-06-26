@@ -3,17 +3,26 @@
 #include <vector>
 using namespace std;
 
+// Euclid's Algorithm
 int main()
 {
     int a=20,b=28;
     int gcd=1;
-    for (int i = 1; i < min(a,b); i++)
-    {
-        if(a%i==0 && b%i==0){
-            gcd=i;
+    while(a>0 && b>0){
+        if(a>b){
+            a=a%b;
         }
+        else{
+            b=b%a;
+        }
+    }  
+
+    if(a==0){
+        cout<<b<<endl;
     }
-    cout<<gcd<<endl;
+    else{
+        cout<<a<<endl;
+    }
     
     
     return 0;
