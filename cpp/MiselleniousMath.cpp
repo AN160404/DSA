@@ -1,24 +1,31 @@
 #include <iostream>
+#include <math.h>
 #include <vector>
 using namespace std;
 
-// Sieve of Erathosthenes
 int main()
 {
-    int n = 50;
-    int ans = 0;
-    vector<bool> isPrime(n + 1, true);
-    for (int i = 2; i < n; i++)
+    int num = 153;
+    int n = num;
+    int digit = 0;
+    while(n>0)
     {
-        if (isPrime[i])
-        {
-            ans++;
-            for (int j = i * 2; j < n; j = j + i)
-            {
-                isPrime[j] = false;
-            }
-        }
+        digit++;
+        n=n/10;
     }
-    cout << ans;
+    int sum=0;
+    int n1=num;
+    while(n1>0){
+        int rem=n1%10;
+        sum+=round(pow(rem,digit));
+        n1/=10;
+    }
+    if(sum==num){
+        cout<<"Armstrong"<<endl;
+    }
+    else{
+        cout<<"Not Armstrong"<<endl;
+    }
+    
     return 0;
 }
