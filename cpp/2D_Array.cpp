@@ -16,7 +16,7 @@ int main(){
         int sum=0;
         for (int j = 0; j < 3; j++)
         {
-            sum+=arr[i][j];
+            sum+=arr[j][i];
         }
         maximum=max(maximum,sum);
         
