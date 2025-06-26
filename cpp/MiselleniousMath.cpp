@@ -3,11 +3,10 @@
 #include <vector>
 using namespace std;
 
-// Euclid's Algorithm
 int main()
 {
-    int a=20,b=28;
-    int gcd=1;
+    int x=20,y=28;
+    int a=x,b=y;
     while(a>0 && b>0){
         if(a>b){
             a=a%b;
@@ -16,14 +15,15 @@ int main()
             b=b%a;
         }
     }  
-
+    int gcd=1;
     if(a==0){
-        cout<<b<<endl;
+        gcd=b;
     }
     else{
-        cout<<a<<endl;
+        gcd=a;
     }
     
-    
+    int lcm=(x*y)/gcd;
+    cout<<lcm;
     return 0;
 }
