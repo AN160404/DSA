@@ -5,27 +5,16 @@ using namespace std;
 
 int main()
 {
-    int num = 153;
-    int n = num;
-    int digit = 0;
-    while(n>0)
+    int a=20,b=28;
+    int gcd=1;
+    for (int i = 1; i < min(a,b); i++)
     {
-        digit++;
-        n=n/10;
+        if(a%i==0 && b%i==0){
+            gcd=i;
+        }
     }
-    int sum=0;
-    int n1=num;
-    while(n1>0){
-        int rem=n1%10;
-        sum+=round(pow(rem,digit));
-        n1/=10;
-    }
-    if(sum==num){
-        cout<<"Armstrong"<<endl;
-    }
-    else{
-        cout<<"Not Armstrong"<<endl;
-    }
+    cout<<gcd<<endl;
+    
     
     return 0;
 }
