@@ -1,26 +1,76 @@
 #include <iostream>
-#include <algorithm>
 #include <vector>
 using namespace std;
 
+int rowSearch(vector<vector<int>> &matrix, int row, int target)
+{
+    int size = matrix[0].size();
+    int st = 0, end = size - 1;
+    while (st <= end)
+    {
+        int mid = st + (end - st) / 2;
+        if (matrix[row][mid] == target)
+        {
+            return mid;
+        }
+        else if (matrix[row][mid] < target)
+        {
+            st = mid + 1;
+        }
+        else
+        {
+            end = mid - 1;
+        }
+    }
+    return -1;  // Return -1 if not found
+}
+
 int main()
 {
-    vector<vector<int>> arr= {
+    vector<vector<int>> matrix = {
         {1, 2, 3, 4},
         {5, 6, 7, 8},
         {9, 10, 11, 12},
         {13, 14, 15, 16}};
 
-    // int row=arr.size();  Row size
-    // int col=arr[i].size(); Col size
+    int target = 3;
 
-    for (int i = 0; i < arr.size(); i++)
+    int m = matrix.size();
+    int n = matrix[0].size();
+    int i = 0, j = m - 1;
+    int pos = -1, mid = -1;
+    bool found = false;
+
+    while (i <= j)
     {
-        for (int j = 0; j < arr[i].size(); j++)
+        mid = i + (j - i) / 2;
+        if (matrix[mid][0] <= target && matrix[mid][n - 1] >= target)
         {
-            cout<<arr[i][j]<<" ";
+            pos = rowSearch(matrix, mid, target);
+            if (pos != -1)
+            {
+                found = true;
+            }
+            break;  // No need to continue after finding correct row
         }
-        cout<<endl;
+        else if (target > matrix[mid][n - 1])
+        {
+            i = mid + 1;
+        }
+        else
+        {
+            j = mid - 1;
+        }
     }
-    
+
+    if (found)
+    {
+        cout << "Exists at row " << mid << ", column " << pos << endl;
+    }
+    else
+    {
+        cout << "Target not found." << endl;
+    }
+
+    return 0;
 }
