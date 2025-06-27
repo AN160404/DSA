@@ -5,19 +5,17 @@ int main()
 {
     vector<int> nums = {1, 2, 3, 1, 5};
 
-    int n = nums.size();
-    vector<int> hash(n + 1, 0);
-    for (int i = 0; i < n; i++)
+    int slow = nums[0], fast = nums[0];
+    do
     {
-        hash[nums[i]]++;
-    }
-    for (int i = 1; i <= n; i++)
+        slow = nums[slow];       // +1
+        fast = nums[nums[fast]]; // +2
+    } while (slow != fast);
+    slow = nums[0];
+    while (slow != fast)
     {
-        if (hash[i] > 1)
-        {
-            cout << i << endl;
-            return 0;
-        }
+        slow = nums[slow]; // +1
+        fast = nums[fast]; // +1
     }
-    return 0;
+    cout << slow;
 }
