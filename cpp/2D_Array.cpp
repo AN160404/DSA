@@ -1,26 +1,53 @@
 #include <iostream>
-#include <algorithm>
-
+#include <vector>
 using namespace std;
 
 int main()
 {
-    int arr[4][4] = {
-        {1, 2, 3, 4},
-        {5, 6, 7, 8},
-        {9, 10, 11, 12},
-        {13, 14, 15, 16}};
+    vector<vector<int>> matrix = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
 
-    int sum = 0;
-    int n = 4;
-    for (int i = 0; i < n; i++)
+    int m = matrix.size();
+    int n = matrix[0].size();
+    int srow = 0, erow = m - 1;
+    int scol = 0, ecol = n - 1;
+    vector<int> arr;
+    while (srow <= erow && scol <= ecol)
     {
-        sum += arr[i][i];
-        if (i != n - 1 - i)
+        // Top
+        for (int j = scol; j <= ecol; j++)
         {
-            sum += arr[i][n - 1 - i];
+            arr.push_back(matrix[srow][j]);
         }
+        // Right
+        for (int j = srow + 1; j <= erow; j++)
+        {
+            arr.push_back(matrix[j][ecol]);
+        }
+        // Bottom
+        for (int j = ecol - 1; j >= scol; j--)
+        {
+            if (srow == erow)
+            {
+                break;
+            }
+            arr.push_back(matrix[erow][j]);
+        }
+        // Left
+        for (int j = erow - 1; j >= srow + 1; j--)
+        {
+            if (scol == ecol)
+            {
+                break;
+            }
+            arr.push_back(matrix[j][scol]);
+        }
+        scol++;
+        ecol--;
+        srow++;
+        erow--;
     }
-    cout << sum << endl;
-    ;
+    for(int val:arr){
+        cout<<val<<endl;
+    }
+    return 0;
 }
