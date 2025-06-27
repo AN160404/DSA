@@ -1,26 +1,33 @@
 #include <iostream>
 #include <vector>
-#include <string>
-#include <unordered_map>
 using namespace std;
-int main(){
-    vector<int> nums={2,7,11,15};
-    int target=9;
+int main()
+{
+    vector<vector<int>> grid = {{9, 1, 7}, {8, 9, 2}, {3, 4, 6}};
 
-    vector<int> ans;
-    unordered_map<int,int> map;
-    int n=nums.size();
-    for(int i=0;i<n;i++){
-        int first=nums[i];
-        int second=target-first;
-        if(map.find(second)!=map.end()){
-            ans.push_back(first);
-            ans.push_back(second);
+    int n = grid.size();
+    vector<int> hash(n * n + 1, 0);
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            hash[grid[i][j]]++;
         }
-        map[first]=i;
     }
-    cout<<ans[0]<<endl;
-    cout<<ans[1]<<endl;
-    
-    
+    int dou = -1, missing = -1;
+    for (int i = 1; i <= n * n; i++)
+    {
+
+        if (hash[i] == 2)
+        {
+            dou = i;
+        }
+        else if (hash[i] == 0)
+        {
+            missing = i;
+        }
+    }
+
+    cout << dou << " is double" << endl;
+    cout << missing << " is missing" << endl;
 }
