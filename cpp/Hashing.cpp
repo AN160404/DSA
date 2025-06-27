@@ -3,31 +3,21 @@
 using namespace std;
 int main()
 {
-    vector<vector<int>> grid = {{9, 1, 7}, {8, 9, 2}, {3, 4, 6}};
+    vector<int> nums = {1, 2, 3, 1, 5};
 
-    int n = grid.size();
-    vector<int> hash(n * n + 1, 0);
+    int n = nums.size();
+    vector<int> hash(n + 1, 0);
     for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < n; j++)
-        {
-            hash[grid[i][j]]++;
-        }
+        hash[nums[i]]++;
     }
-    int dou = -1, missing = -1;
-    for (int i = 1; i <= n * n; i++)
+    for (int i = 1; i <= n; i++)
     {
-
-        if (hash[i] == 2)
+        if (hash[i] > 1)
         {
-            dou = i;
-        }
-        else if (hash[i] == 0)
-        {
-            missing = i;
+            cout << i << endl;
+            return 0;
         }
     }
-
-    cout << dou << " is double" << endl;
-    cout << missing << " is missing" << endl;
+    return 0;
 }
