@@ -5,45 +5,51 @@
 using namespace std;
 int main()
 {
-    vector<int> nums = {-1, 0, 1, 2, -1, -4};
-
+    vector<int> nums = {1, 0, -1, 0, -2, 2};
+    int target =0;
+    sort(nums.begin(), nums.end());
     int n = nums.size();
     vector<vector<int>> ans;
-    sort(nums.begin(), nums.end());
     for (int i = 0; i < n; i++)
     {
-        int j = i + 1, k = n - 1;
         if (i > 0 && nums[i] == nums[i - 1])
             continue;
-        while (j < k)
+        for (int j = i + 1; j < n; j++)
         {
-            if (nums[i] + nums[j] + nums[k] < 0)
+            if (j > i + 1 && nums[j] == nums[j - 1])
+                continue;
+            int st = j + 1, end = n - 1;
+
+            while (st < end)
             {
-                j++;
-            }
-            else if (nums[i] + nums[j] + nums[k] > 0)
-            {
-                k--;
-            }
-            else
-            {
-                ans.push_back({nums[i], nums[j], nums[k]});
-                j++;
-                k--;
-                while (j < k && nums[j] == nums[j - 1])
-                    j++;
+                long long sum = (long long)nums[i] + nums[j] + nums[st] + nums[end];
+                if (sum > target)
+                {
+                    end--;
+                }
+                else if (sum < target)
+                {
+                    st++;
+                }
+                else
+                {
+                    ans.push_back({nums[i], nums[j], nums[st], nums[end]});
+                    st++;
+                    end--;
+                    while (st < end && nums[st] == nums[st - 1])
+                        st++;
+                    while (st < end && nums[end] == nums[end + 1])
+                        end--;
+                }
             }
         }
-        
-        
     }
     for (int i = 0; i < ans.size(); i++)
+    {
+        for (int j = 0; j < 4; j++)
         {
-            for (int j = 0; j < 3; j++)
-            {
-                cout<< ans[i][j]<<" ";
-            }
-            cout<<endl;
-            
+            cout << ans[i][j] << " ";
         }
+        cout << endl;
+    }
 }
