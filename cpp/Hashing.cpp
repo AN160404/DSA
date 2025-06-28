@@ -1,55 +1,27 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <unordered_map>
 
 using namespace std;
 int main()
 {
-    vector<int> nums = {1, 0, -1, 0, -2, 2};
-    int target =0;
-    sort(nums.begin(), nums.end());
-    int n = nums.size();
-    vector<vector<int>> ans;
-    for (int i = 0; i < n; i++)
-    {
-        if (i > 0 && nums[i] == nums[i - 1])
-            continue;
-        for (int j = i + 1; j < n; j++)
-        {
-            if (j > i + 1 && nums[j] == nums[j - 1])
-                continue;
-            int st = j + 1, end = n - 1;
+    vector<int> nums = {1, 2, 3};
+    int k = 3;
 
-            while (st < end)
-            {
-                long long sum = (long long)nums[i] + nums[j] + nums[st] + nums[end];
-                if (sum > target)
-                {
-                    end--;
-                }
-                else if (sum < target)
-                {
-                    st++;
-                }
-                else
-                {
-                    ans.push_back({nums[i], nums[j], nums[st], nums[end]});
-                    st++;
-                    end--;
-                    while (st < end && nums[st] == nums[st - 1])
-                        st++;
-                    while (st < end && nums[end] == nums[end + 1])
-                        end--;
-                }
-            }
-        }
-    }
-    for (int i = 0; i < ans.size(); i++)
+    int n = nums.size();
+    unordered_map<int, int> m;
+    m[0] = 1;
+    int count = 0, sum = 0;
+
+    for (int num : nums)
     {
-        for (int j = 0; j < 4; j++)
-        {
-            cout << ans[i][j] << " ";
+        sum += num; // Contiguous sum for each number
+        if (m.find(sum - k) != m.end())  // If the remaining number found in the sums till now?
+        {                       
+            count += m[sum - k]; // Adding the frequency of remaining sum
         }
-        cout << endl;
+        m[sum]++; // If sum not present, adding the frequency of sum to map.
     }
+    cout << count << endl;
 }
