@@ -2,16 +2,19 @@
 
 using namespace std;
 
-bool sorted(int arr[],int n){
-    if(n==0 || n==1) return true;
-    return (arr[n-1]>=arr[n-2]) && sorted(arr,n-1); // TC = O(n)
-    
+int sorted(int arr[],int target,int st,int end){
+    int mid=st+(end-st)/2;
+    if(target== arr[mid]) return mid;
+    else if(target<arr[mid]) return sorted(arr, target, st,mid-1);
+    else return sorted(arr,target,mid+1,end);
+    return -1;
 }
 int main(){
-    int arr[5]={1,2,3,41,5};
-    int n=5;
-    int ans=sorted(arr,n);
-    if(ans==1) cout<<"Sorted"<<endl;
-    else cout<<"Not Sorted"<<endl;
+    int arr[5]={1,2,3,4,5};
+    int target=2;
+    int st=0,end= sizeof(arr)/sizeof(arr[0]) - 1;
+    int ans=sorted(arr,target,st,end);
+    if(ans>-1) cout<<"Found at "<<ans<<endl;
+    else cout<<"Not Found"<<endl;
     return 0;
 }
