@@ -1,14 +1,13 @@
 #include <iostream>
 using namespace std;
 
-int fact(int n){
-    if(n==1) return 1;
-    return n+fact((n-1));
-    return 0;
+int fib(int n){
+    if(n==1 || n==0) return n;
+    return fib(n-2)+fib((n-1));
 }
 int main(){
     int n=5;
-    int ans=fact(n);
+    int ans=fib(n);
     cout<<ans<<endl;
     return 0;
 }
