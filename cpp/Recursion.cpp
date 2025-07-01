@@ -1,17 +1,14 @@
 #include <iostream>
 using namespace std;
 
-int num(int n){
-    if(n==1){
-        cout<<1<<endl;
-        return 0;
-    }
-    cout<<n<<endl;
-    num(n-1);
+int fact(int n){
+    if(n==0) return 1;
+    return n*fact((n-1));
     return 0;
 }
 int main(){
     int n=5;
-    num(n);
+    int ans=fact(n);
+    cout<<ans<<endl;
     return 0;
 }
