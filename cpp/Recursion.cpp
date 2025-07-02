@@ -3,39 +3,29 @@
 #include <algorithm>
 using namespace std;
 
-int subset(vector<int> &arr, vector<int> &ans, int i,vector<vector<int>> &allsub)
-{ // O(n*2^n)
-    if (i == arr.size())
+int permutation(vector<int> &arr, vector<vector<int>> &ans, int idx)
+{ 
+    if (idx == arr.size())
     {
-        allsub.push_back(ans);
+        ans.push_back({arr});
         return 0;
     }
-    // Including
-    ans.push_back(arr[i]);
-    subset(arr, ans, i + 1,allsub);
-
-    // Excluding
-    ans.pop_back();
-
-    // Ensuring same element is not getting read twice
-
-    int idx=i+1;
-    while(idx<arr.size() && arr[idx]==arr[idx-1]){
-        idx++;
+    
+    for(int i=idx;i<arr.size();i++){
+        swap(arr[i],arr[idx]);
+        permutation(arr,ans,idx+1);
+        swap(arr[i],arr[idx]);
     }
-    subset(arr,ans,idx,allsub);
 }
 int main()
 {
-    vector<int> arr = {1, 2, 2};
-    vector<int> ans;
-    vector<vector<int>> allsub;
+    vector<int> arr = {1, 2, 3};
+    vector<vector<int>> ans;
     int i = 0;
-    sort(arr.begin(),arr.end());
 
-    subset(arr, ans, i,allsub);
+    permutation(arr, ans, i);
 
-    for (const auto& row : allsub) {
+    for (const auto& row : ans) {
         for (int val : row) {
             cout << val << " ";
         }
