@@ -1,20 +1,27 @@
 #include <iostream>
-
+#include <vector>
 using namespace std;
 
-int sorted(int arr[],int target,int st,int end){
-    int mid=st+(end-st)/2;
-    if(target== arr[mid]) return mid;
-    else if(target<arr[mid]) return sorted(arr, target, st,mid-1);
-    else return sorted(arr,target,mid+1,end);
-    return -1;
+int subset(vector<int> arr,vector<int> ans, int i){  // O(n*2^n)
+    if(i==arr.size()){
+        for(int val:ans){
+            cout<<val<<" ";
+        }
+        cout<<endl;
+        return 0;
+    }
+    // Including
+    ans.push_back(arr[i]);
+    subset(arr,ans,i+1);
+
+    // Excluding
+    ans.pop_back();
+    subset(arr,ans,i+1);
 }
 int main(){
-    int arr[5]={1,2,3,4,5};
-    int target=2;
-    int st=0,end= sizeof(arr)/sizeof(arr[0]) - 1;
-    int ans=sorted(arr,target,st,end);
-    if(ans>-1) cout<<"Found at "<<ans<<endl;
-    else cout<<"Not Found"<<endl;
+    vector<int> arr={1,2,3};
+    vector<int> ans;
+    int i=0;
+    subset(arr,ans,i);
     return 0;
 }
