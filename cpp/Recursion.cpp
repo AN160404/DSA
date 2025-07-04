@@ -3,62 +3,65 @@
 #include <algorithm>
 using namespace std;
 
-bool isSafe(vector<string> &board,int row,int col,int n){
-    // Check in row for different columns i.e Horizontally
-    for(int i=0;i<n;i++){
-        if(board[row][i]=='Q'){
-            return false;
+bool isSafe(vector<vector<char>>& board, int row, int col, char num) {
+        for (int i = 0; i < 9; i++) {
+            // Check row and column
+            if (board[row][i] == num || board[i][col] == num)
+                return false;
         }
+
+        // Check 3x3 box
+        int startRow = row - row % 3; // 1 - 1%3 = 1st row
+        int startCol = col - col % 3; // 5 - 5%3 = 3rd column
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (board[startRow + i][startCol + j] == num)
+                    return false;
+            }
+        }
+        return true;
     }
 
-    // Check in column for different rows i.e. Vertically
-    for(int i=0;i<row;i++){
-        if(board[i][col]=='Q'){
-            return false;
+    bool solver(vector<vector<char>>& board) {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (board[i][j] == '.') {
+                    for (char num = '1'; num <= '9'; num++) {
+                        if (isSafe(board, i, j, num)) {
+                            board[i][j] = num;
+                            if (solver(board)) return true;  // Continue recursively
+                            board[i][j] = '.';  // Backtrack
+                        }
+                    }
+                    return false;  // No valid number found
+                }
+            }
         }
+        return true;  // All cells filled correctly
     }
 
-    // Check for Left Diagonal
-    for(int i=row,j=col;i>=0 && j>=0;i--,j--){
-        if(board[i][j]=='Q'){
-            return false;
-        }
-    }
+int main(){
+    vector<vector<char>> board = {
+        {'5','3','.','.','7','.','.','.','.'},
+        {'6','.','.','1','9','5','.','.','.'},
+        {'.','9','8','.','.','.','.','6','.'},
+        {'8','.','.','.','6','.','.','.','3'},
+        {'4','.','.','8','.','3','.','.','1'},
+        {'7','.','.','.','2','.','.','.','6'},
+        {'.','6','.','.','.','.','2','8','.'},
+        {'.','.','.','4','1','9','.','.','5'},
+        {'.','.','.','.','8','.','.','7','9'}
+    };
 
-    // Check for Right Diagonal
-    for(int i=row,j=col;i>=0 && j<n;i--,j++){
-        if(board[i][j]=='Q'){
-            return false;
+    solver(board);
+    cout<<endl<<"----------------------------------"<<endl;
+    for (int i = 0; i < board.size(); i++)
+    {
+        for (int j = 0; j < board[0].size(); j++)
+        {
+            cout<<board[i][j]<<" | ";
         }
+        cout<<endl<<"----------------------------------"<<endl;
     }
-    return true;
-
-}
-void nQueen(vector<string> &board,vector<vector<string>> &ans, int n,int row){
-    if(row==n){
-        ans.push_back(board);
-        return;
-    }
-    for(int i=0;i<n;i++){
-        if(isSafe(board,row, i,n)){
-            board[row][i]='Q';
-            nQueen(board,ans,n,row+1);
-            board[row][i]='.';
-        }
-    }
-}
-int  main(){
-    int n=4;
-    vector<string> board(n,string(n,'.'));
-    vector<vector<string>> ans;
-    int row=0;
-    nQueen(board,ans,n,row);
-
-    for(const auto &val:ans){
-        for(const string &v: val){
-            cout<<v<<endl;
-        }
-        cout<<endl;
-    }
-    return 0;
+    
 }
