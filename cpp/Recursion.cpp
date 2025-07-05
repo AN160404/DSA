@@ -4,54 +4,43 @@
 #include <set>
 using namespace std;
 
-void helper(vector<vector<int>> &maze, int row, int col, int n,
-            vector<vector<bool>> &visited, string s, set<string> &uniquePaths)
+set<vector<int>> s;
+void combSum(vector<int> &arr, int i, vector<vector<int>> &ans, vector<int> &comb, int target)
 {
-    // Boundary and obstacle checks
-    if (row < 0 || col < 0 || row >= n || col >= n ||
-        maze[row][col] == 0 || visited[row][col])
+    int n = arr.size();
+    if (target == 0)
+    {
+        if (s.find(comb) == s.end())
+        {
+            ans.push_back(comb);
+            s.insert(comb);
+        }
+
+        return;
+    }
+    if (i == n || target < 0)
     {
         return;
     }
-
-    // Goal reached
-    if (row == n - 1 && col == n - 1)
-    {
-        uniquePaths.insert(s);
-        return;
-    }
-
-    visited[row][col] = true;
-
-    // Explore all directions in lex order
-    helper(maze, row + 1, col, n, visited, s + 'D', uniquePaths); // Down
-    helper(maze, row, col - 1, n, visited, s + 'L', uniquePaths); // Left
-    helper(maze, row, col + 1, n, visited, s + 'R', uniquePaths); // Right
-    helper(maze, row - 1, col, n, visited, s + 'U', uniquePaths); // Up
-
-    visited[row][col] = false; // Backtrack
+    comb.push_back(arr[i]);
+    combSum(arr, i + 1, ans, comb, target - arr[i]); // Single Inclusion
+    combSum(arr, i, ans, comb, target - arr[i]);     // Multiple Inclusion
+    comb.pop_back();
+    combSum(arr, i + 1, ans, comb, target); // Exclusion
 }
 
 int main()
 {
-    vector<vector<int>> maze = {
-        {1, 0, 0, 0},
-        {1, 1, 0, 1},
-        {1, 1, 0, 0},
-        {0, 1, 1, 1}};
-
-    int n = maze.size();
-    string s;
-    set<string> uniquePaths;
-    vector<vector<bool>> visited(n, vector<bool>(n, false));
-
-    helper(maze, 0, 0, n, visited, s, uniquePaths);
-
-    // Output paths in sorted order
-    for (const string &path : uniquePaths)
-    {
-        cout << path << endl;
+    vector<int> arr = {2, 3, 6, 7};
+    int target = 7;
+    vector<vector<int>> ans;
+    vector<int> comb;
+    int i = 0;
+    combSum(arr, i, ans, comb, target);
+    for(const auto &vec: ans){
+        for(const auto &v: vec){
+            cout<<v<<" ";
+        }
+        cout << endl;
     }
-
-    return 0;
 }
