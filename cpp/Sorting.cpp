@@ -2,28 +2,47 @@
 #include<vector>
 using namespace std;
 
-int main(){
-    vector<int> nums={4,1,5,2,3};
-
-    for(int i=1;i<nums.size();i++){
-        // Inititalizing the current element
-        int curr=nums[i];
-        // Initializing the previous positions
-        int prev=i-1;
-        // Traverse all previous until they come to be less than current value.
-        while(prev>=0 && nums[prev]>curr){
-            nums[prev+1]=nums[prev]; // Shifting all the previous with one step
-            prev--;
+void merge(vector<int>& nums, int lb, int ub, int mid, vector<int>& temp) {
+    temp.clear();
+    int i = lb, j = mid + 1;
+    while (i <= mid && j <= ub) {
+        if (nums[i] <= nums[j]) {
+            temp.push_back(nums[i]);
+            i++;
+        } else {
+            temp.push_back(nums[j]);
+            j++;
         }
-        // Redefine the number to be switched with the current value
-        nums[prev+1]=curr; // +1 because if we reach a number less than curr, we replace the number next to it with current.
     }
-
-            for (int i = 0; i < nums.size(); i++)
-    {
-        cout<<nums[i]<<endl;   
+    while (i <= mid) {
+        temp.push_back(nums[i]);
+        i++;
     }
-    
+    while (j <= ub) {
+        temp.push_back(nums[j]);
+        j++;
+    }
+    for (int i = lb; i <= ub; i++) {
+        nums[i] = temp[i - lb];
+    }
+}
 
-    
+void mergeSort(vector<int>& nums, int lb, int ub, vector<int>& temp) {
+    if (lb >= ub) return; // Base case to stop recursion
+    int mid = lb + (ub - lb) / 2;
+    mergeSort(nums, lb, mid, temp);
+    mergeSort(nums, mid + 1, ub, temp);
+    merge(nums, lb, ub, mid, temp);
+}
+
+int main() {
+    vector<int> nums = {4, 1, 5, 2, 3, 6, 7, 8};
+    int n = nums.size();
+    vector<int> temp;
+    mergeSort(nums, 0, n - 1, temp);
+
+    for (int i = 0; i < n; i++) {
+        cout << nums[i] << " ";
+    }
+    cout << endl;
 }
