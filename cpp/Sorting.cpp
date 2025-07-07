@@ -1,45 +1,35 @@
 #include<iostream>
 #include<vector>
+#include <algorithm>
 using namespace std;
 
-void merge(vector<int>& nums, int lb, int ub, int mid, vector<int>& temp) {
-    temp.clear();
-    int i = lb, j = mid + 1;
-    while (i <= mid && j <= ub) {
-        if (nums[i] <= nums[j]) {
-            temp.push_back(nums[i]);
-            i++;
-        } else {
-            temp.push_back(nums[j]);
-            j++;
+int partition(vector<int>& nums, int lb, int ub) {
+    int i=lb,j=ub,pivot=nums[lb];
+    while(i<=j){
+        do{i++;} while(nums[i]<=pivot);
+        do{j--;} while(nums[j]> pivot);
+        if(i<j){
+            swap(nums[i],nums[j]);
         }
-    }
-    while (i <= mid) {
-        temp.push_back(nums[i]);
-        i++;
-    }
-    while (j <= ub) {
-        temp.push_back(nums[j]);
-        j++;
-    }
-    for (int i = lb; i <= ub; i++) {
-        nums[i] = temp[i - lb];
+        else{
+            swap(pivot,nums[j]);
+            return j;
+        }
     }
 }
 
-void mergeSort(vector<int>& nums, int lb, int ub, vector<int>& temp) {
+void quickSort(vector<int>& nums, int lb, int ub) {
     if (lb >= ub) return; // Base case to stop recursion
-    int mid = lb + (ub - lb) / 2;
-    mergeSort(nums, lb, mid, temp);
-    mergeSort(nums, mid + 1, ub, temp);
-    merge(nums, lb, ub, mid, temp);
+    int part=partition(nums,lb,ub);
+    quickSort(nums,lb,part);
+    quickSort(nums,part+1,ub);
 }
 
 int main() {
     vector<int> nums = {4, 1, 5, 2, 3, 6, 7, 8};
     int n = nums.size();
     vector<int> temp;
-    mergeSort(nums, 0, n - 1, temp);
+    quickSort(nums, 0, n - 1);
 
     for (int i = 0; i < n; i++) {
         cout << nums[i] << " ";
