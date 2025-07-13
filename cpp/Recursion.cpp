@@ -3,66 +3,33 @@
 #include <algorithm>
 using namespace std;
 
-int merge(vector<int> &nums, int lb, int ub, int mid, vector<int> &temp)
+bool valid(vector<vector<int>> &grid, int row, int col, int n, int value)
 {
-    temp.clear();
-    int count = 0;
-    int i = lb, j = mid + 1;
+    if (row < 0 || col < 0 || row >= n || col >= n || grid[row][col] != value)
+        return false;
 
-    while (i <= mid && j <= ub)
-    {
-        if (nums[i] <= nums[j])
-        {
-            temp.push_back(nums[i]);
-            i++;
-        }
-        else
-        {
-            temp.push_back(nums[j]);
-            count += (mid - i + 1); // Count inversions
-            j++;
-        }
-    }
+    if (value == ((n*n) - 1))
+        return true;
 
-    // Append remaining elements
-    while (i <= mid)
-    {
-        temp.push_back(nums[i]);
-        i++;
-    }
-    while (j <= ub)
-    {
-        temp.push_back(nums[j]);
-        j++;
-    }
+    bool ans1 = valid(grid, row + 1, col + 2, n, value + 1);
+    bool ans2 = valid(grid, row + 1, col - 2, n, value + 1);
+    bool ans3 = valid(grid, row - 1, col + 2, n, value + 1);
+    bool ans4 = valid(grid, row - 1, col - 2, n, value + 1);
+    bool ans5 = valid(grid, row + 2, col + 1, n, value + 1);
+    bool ans6 = valid(grid, row + 2, col - 1, n, value + 1);
+    bool ans7 = valid(grid, row - 2, col + 1, n, value + 1);
+    bool ans8 = valid(grid, row - 2, col - 1, n, value + 1);
 
-    // Copy sorted elements back into nums
-    for (int k = 0; k < temp.size(); ++k)
-    {
-        nums[lb + k] = temp[k];
-    }
-
-    return count;
-}
-
-int mergeSort(vector<int> &nums, int lb, int ub, vector<int> &temp)
-{
-    if (lb >= ub)
-        return 0;
-
-    int mid = lb + (ub - lb) / 2;
-    int c1 = mergeSort(nums, lb, mid, temp);
-    int c2 = mergeSort(nums, mid + 1, ub, temp);
-    int c3 = merge(nums, lb, ub, mid, temp);
-    return c1 + c2 + c3;
+    return ans1 || ans2 || ans3 || ans4 || ans5 || ans6 || ans7 || ans8;
 }
 
 int main()
 {
-    vector<int> nums = {6, 3, 5, 2, 7};
-    int n = nums.size();
-    vector<int> temp;
-    int count = mergeSort(nums, 0, n - 1, temp);
-    cout << "Inversion count: " << count << endl;
-    return 0;
+    vector<vector<int>> grid = {{0, 11, 16, 5, 20}, {17, 4, 19, 10, 15}, {12, 1, 8, 21, 6}, {3, 18, 23, 14, 9}, {24, 13, 2, 7, 22}};
+    int value = 0;
+    int row = 0, col = 0;
+    int n = grid.size();
+
+    bool ans = valid(grid, row, col, n, value);
+    cout<<ans;
 }
