@@ -43,12 +43,17 @@ class List{
         }
     }
 
-    // Popping the elements from the start of the list
-    void pop_front(){
-        Node * temp=head;
-        head=head->next;
+    // Popping the elements from the back of the list
+    void pop_back(){
+        if(head==NULL) return;
+        Node *temp=head;
+        while(temp->next->next!=NULL){
+            temp=temp->next;
+        }
         temp->next=NULL;
-        delete temp;
+        delete tail;
+        tail=temp;
+
     }   
 };
 int main(){
@@ -61,7 +66,7 @@ int main(){
     obj.print();
     cout<<endl;
 
-    obj.pop_front();
+    obj.pop_back();
 
     obj.print();
 }
