@@ -29,44 +29,31 @@ class List{
             ptr=ptr->next;
         }
     }
-
-    // Pushing the value in the Back of the Linked List
-    void push_back(int val){
+    
+    // Inserting at a particular position
+    void insert(int val, int pos){
         Node *newNode=new Node(val);
-        if(head==NULL){
-            head=tail=newNode;
-            return;
+        Node *temp=head;
+        if(pos==0){
+            newNode->next=head;
+            head=newNode;
         }
         else{
-            tail->next=newNode;
-            tail=newNode;
+            for (int i = 0; i < pos-1; i++)
+            {
+                temp=temp->next;
+            }
+            newNode->next=temp->next;
+            temp->next=newNode;      
         }
     }
-
-    // Popping the elements from the back of the list
-    void pop_back(){
-        if(head==NULL) return;
-        Node *temp=head;
-        while(temp->next->next!=NULL){
-            temp=temp->next;
-        }
-        temp->next=NULL;
-        delete tail;
-        tail=temp;
-
-    }   
 };
 int main(){
     List obj;
 
-    obj.push_back(1);
-    obj.push_back(2);
-    obj.push_back(3);
-
-    obj.print();
-    cout<<endl;
-
-    obj.pop_back();
-
+    obj.insert(1,0);
+    obj.insert(2,1);
+    obj.insert(3,2); 
+    obj.insert(0,2);
     obj.print();
 }
