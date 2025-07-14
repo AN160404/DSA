@@ -1,102 +1,56 @@
 #include <iostream>
+
 using namespace std;
 
-class Node
-{
+class Node{
     public:
     int data;
     Node* next;
-    Node* prev;
 
-    Node(int data)
-    {
-        this->data=data;
-        this->next=NULL;
-        this->prev=NULL;
+    Node(int val){
+        data=val;
+        next=NULL;
     }
 };
-
-class LinkedList{
+class List{
     Node *head;
     Node *tail;
+
     public:
-    LinkedList()
-    {
-        head=NULL;
-        tail=NULL;
-    }
-    void append(int data){
-        Node *newNode=new Node(data);
-        if (head==NULL){
-            head=newNode;
-            tail=newNode;
-            return ;
-        }
-        Node *temp=head;
-        while (temp->next!=NULL)
-        {
-            temp=temp->next;
-        }
-        temp->next=newNode;
-        newNode->prev=temp;
-        tail=newNode;
-        
+    List(){
+        head=tail=NULL;
     }
 
-    void deletionbeforeelement(){
+    // Printing LL
+    void print(){
         Node *ptr=head;
-        int element=0;
-
-        cout<<"Enter element :"<<endl;
-        cin>>element;
-        //Check for empty list
-        if(ptr==NULL)
-        {
-            return ;
-        }
-        
-        while(ptr->data!=element)
-        {
+        while(ptr!=NULL){
+            cout<<ptr->data<<" ";
             ptr=ptr->next;
         }
-        //Check for head
-        if(ptr->prev==head){
-            head=ptr;
-            ptr->prev=NULL;
+    }
+
+    // Pushing the value in Front of the Linked List
+    void push_front(int val){
+        Node *newNode=new Node(val);
+        if(head==NULL){
+            head=newNode;
+            return;
         }
         else{
-        ptr->prev->prev->next=ptr;      
-        ptr->prev=ptr->prev->prev;
+            newNode->next=head;
+            head=newNode;
         }
-
-        
     }
 
-    void print()
-    {
-        Node *ptr=head;
-        while (ptr!=NULL)
-        {
-            cout<<ptr->data<<endl;
-            ptr=ptr->next;
-        }
-        return;        
-    }
+    
 };
-int main()
-{
-    LinkedList obj;
-    obj.append(1);
-    obj.append(2);
-    obj.append(3);
-    obj.append(4);
-    obj.append(5);
-    cout<<"List:"<<endl;
-    obj.print();
-    obj.deletionbeforeelement();
-        cout<<"After deletion List:"<<endl;
+int main(){
+    List obj;
+
+    obj.push_front(1);
+    obj.push_front(2);
+    obj.push_front(3);
 
     obj.print();
-
-    return 0;
 }
