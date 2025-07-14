@@ -48,26 +48,13 @@ class List{
         }
     }
 
-    // Popping at a particular position
-    void pop(int pos){
+    int search(int num){
         Node *temp=head;
-        Node *ptr;
-        if(pos==0){
-            head=head->next;
-            temp->next=NULL;
-            delete temp;
-        }
-        // 0 1 2 3 4
-        else{
-            for (int i = 0; i < pos; i++)
-            {
-                ptr=temp;
-                temp=temp->next;
-
+        for(int i=0;temp!=NULL;i++){
+            if(temp->data==num){
+                cout<<"Present at "<<i;
             }
-            ptr->next=temp->next;
-            temp->next=NULL;
-            delete temp;
+            temp=temp->next;
         }
     }
 };
@@ -83,6 +70,5 @@ int main(){
 
     cout<<endl;
 
-    obj.pop(2);
-    obj.print();
+    obj.search(3);
 }
