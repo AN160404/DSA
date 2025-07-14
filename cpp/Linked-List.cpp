@@ -47,6 +47,29 @@ class List{
             temp->next=newNode;      
         }
     }
+
+    // Popping at a particular position
+    void pop(int pos){
+        Node *temp=head;
+        Node *ptr;
+        if(pos==0){
+            head=head->next;
+            temp->next=NULL;
+            delete temp;
+        }
+        // 0 1 2 3 4
+        else{
+            for (int i = 0; i < pos; i++)
+            {
+                ptr=temp;
+                temp=temp->next;
+
+            }
+            ptr->next=temp->next;
+            temp->next=NULL;
+            delete temp;
+        }
+    }
 };
 int main(){
     List obj;
@@ -54,6 +77,12 @@ int main(){
     obj.insert(1,0);
     obj.insert(2,1);
     obj.insert(3,2); 
-    obj.insert(0,2);
+    obj.insert(4,3);
+    obj.insert(5,4);
+    obj.print();
+
+    cout<<endl;
+
+    obj.pop(2);
     obj.print();
 }
