@@ -30,16 +30,16 @@ class List{
         }
     }
 
-    // Pushing the value in Front of the Linked List
-    void push_front(int val){
+    // Pushing the value in the Back of the Linked List
+    void push_back(int val){
         Node *newNode=new Node(val);
         if(head==NULL){
-            head=newNode;
+            head=tail=newNode;
             return;
         }
         else{
-            newNode->next=head;
-            head=newNode;
+            tail->next=newNode;
+            tail=newNode;
         }
     }
 
@@ -48,9 +48,9 @@ class List{
 int main(){
     List obj;
 
-    obj.push_front(1);
-    obj.push_front(2);
-    obj.push_front(3);
+    obj.push_back(1);
+    obj.push_back(2);
+    obj.push_back(3);
 
     obj.print();
 }
