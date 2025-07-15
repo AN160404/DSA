@@ -2,73 +2,90 @@
 
 using namespace std;
 
-class Node{
-    public:
+class Node
+{
+public:
     int data;
-    Node* next;
+    Node *next;
 
-    Node(int val){
-        data=val;
-        next=NULL;
+    Node(int val)
+    {
+        data = val;
+        next = NULL;
     }
 };
-class List{
+class List
+{
     Node *head;
     Node *tail;
 
-    public:
-    List(){
-        head=tail=NULL;
+public:
+    List()
+    {
+        head = tail = NULL;
     }
 
     // Printing LL
-    void print(){
-        Node *ptr=head;
-        while(ptr!=NULL){
-            cout<<ptr->data<<" ";
-            ptr=ptr->next;
-        }
-    }
-    
-    // Inserting at a particular position
-    void insert(int val, int pos){
-        Node *newNode=new Node(val);
-        Node *temp=head;
-        if(pos==0){
-            newNode->next=head;
-            head=newNode;
-        }
-        else{
-            for (int i = 0; i < pos-1; i++)
-            {
-                temp=temp->next;
-            }
-            newNode->next=temp->next;
-            temp->next=newNode;      
+    void print()
+    {
+        Node *ptr = head;
+        while (ptr != NULL)
+        {
+            cout << ptr->data << " ";
+            ptr = ptr->next;
         }
     }
 
-    int search(int num){
-        Node *temp=head;
-        for(int i=0;temp!=NULL;i++){
-            if(temp->data==num){
-                cout<<"Present at "<<i;
-            }
-            temp=temp->next;
+    // Inserting at a particular position
+    void insert(int val, int pos)
+    {
+        Node *newNode = new Node(val);
+        Node *temp = head;
+        if (pos == 0)
+        {
+            newNode->next = head;
+            head = newNode;
         }
+        else
+        {
+            for (int i = 0; i < pos - 1; i++)
+            {
+                temp = temp->next;
+            }
+            newNode->next = temp->next;
+            temp->next = newNode;
+        }
+    }
+
+    int reverse()
+    {
+        Node *prev = NULL;
+        Node *curr = head;
+        Node *next = NULL;
+
+        while (curr != NULL)
+        {
+            next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
+        }
+        head = prev;
     }
 };
-int main(){
+int main()
+{
     List obj;
 
-    obj.insert(1,0);
-    obj.insert(2,1);
-    obj.insert(3,2); 
-    obj.insert(4,3);
-    obj.insert(5,4);
+    obj.insert(1, 0);
+    obj.insert(2, 1);
+    obj.insert(3, 2);
+    obj.insert(4, 3);
+    obj.insert(5, 4);
     obj.print();
 
-    cout<<endl;
+    cout << endl;
 
-    obj.search(3);
+    obj.reverse();
+    obj.print();
 }
