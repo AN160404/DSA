@@ -57,20 +57,15 @@ public:
         }
     }
 
-    int reverse()
+    int middle()
     {
-        Node *prev = NULL;
-        Node *curr = head;
-        Node *next = NULL;
-
-        while (curr != NULL)
-        {
-            next = curr->next;
-            curr->next = prev;
-            prev = curr;
-            curr = next;
+        Node* slow=head;
+        Node* fast=head;
+        while(fast!=NULL && fast->next!=NULL){
+            slow=slow->next;
+            fast=fast->next->next;
         }
-        head = prev;
+        cout<<slow->data<<endl;
     }
 };
 int main()
@@ -82,10 +77,10 @@ int main()
     obj.insert(3, 2);
     obj.insert(4, 3);
     obj.insert(5, 4);
+    obj.insert(6, 5);
     obj.print();
 
     cout << endl;
 
-    obj.reverse();
-    obj.print();
+    obj.middle();
 }
