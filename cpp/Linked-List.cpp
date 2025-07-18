@@ -34,28 +34,42 @@ public:
     void createCycle(int pos) {
         if (pos == -1) return;
         Node* tail = head;
-        Node* cycleNode = nullptr;
+        Node* cycleStart = nullptr;
         int index = 0;
         while (tail->next) {
-            if (index == pos)
-                cycleNode = tail;
+            if (index == pos) cycleStart = tail;
             tail = tail->next;
             index++;
         }
-        tail->next = cycleNode;
+        tail->next = cycleStart;
     }
 
-    // Detect cycle using Floyd’s Tortoise and Hare algorithm
-    bool hasCycle() {
+    // Detects the node where cycle begins (if present), otherwise returns nullptr
+    Node* detectCycle() {
         Node* slow = head;
         Node* fast = head;
+        bool hasCycle = false;
+
+        // Step 1: Detect if cycle exists
         while (fast != nullptr && fast->next != nullptr) {
             slow = slow->next;
             fast = fast->next->next;
-            if (slow == fast)
-                return true;
+            if (slow == fast) {
+                hasCycle = true;
+                break;
+            }
         }
-        return false;
+
+        if (!hasCycle) return nullptr;
+
+        // Step 2: Find the start of the cycle
+        slow = head;
+        while (slow != fast) {
+            slow = slow->next;
+            fast = fast->next;
+        }
+
+        return slow; // Start node of the cycle
     }
 };
 
@@ -65,14 +79,24 @@ int main() {
     list1.insert(2);
     list1.insert(0);
     list1.insert(-4);
-    list1.createCycle(1); // cycle at position 1
-    cout << "List 1 (with cycle): " << (list1.hasCycle() ? "Cycle detected" : "No cycle") << endl;
+    list1.createCycle(1); // cycle starts at node with value 2
+
+    Node* cycleStart1 = list1.detectCycle();
+    if (cycleStart1)
+        cout << "Cycle detected at node with value: " << cycleStart1->val << endl;
+    else
+        cout << "No cycle detected in list 1." << endl;
 
     LinkedList list2;
     list2.insert(1);
     list2.insert(2);
     list2.createCycle(-1); // no cycle
-    cout << "List 2 (no cycle): " << (list2.hasCycle() ? "Cycle detected" : "No cycle") << endl;
+
+    Node* cycleStart2 = list2.detectCycle();
+    if (cycleStart2)
+        cout << "Cycle detected at node with value: " << cycleStart2->val << endl;
+    else
+        cout << "No cycle detected in list 2." << endl;
 
     return 0;
 }
