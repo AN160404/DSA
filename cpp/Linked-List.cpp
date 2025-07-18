@@ -1,86 +1,78 @@
 #include <iostream>
-
 using namespace std;
 
-class Node
-{
+class Node {
 public:
-    int data;
-    Node *next;
+    int val;
+    Node* next;
 
-    Node(int val)
-    {
-        data = val;
-        next = NULL;
-    }
+    Node(int x) : val(x), next(nullptr) {}
 };
-class List
-{
-    Node *head;
-    Node *tail;
+
+class LinkedList {
+private:
+    Node* head;
 
 public:
-    List()
-    {
-        head = tail = NULL;
+    LinkedList() : head(nullptr) {}
+
+    Node* getHead() {
+        return head;
     }
 
-    // Printing LL
-    void print()
-    {
-        Node *ptr = head;
-        while (ptr != NULL)
-        {
-            cout << ptr->data << " ";
-            ptr = ptr->next;
+    void insert(int value) {
+        if (!head) {
+            head = new Node(value);
+            return;
         }
+        Node* temp = head;
+        while (temp->next)
+            temp = temp->next;
+        temp->next = new Node(value);
     }
 
-    // Inserting at a particular position
-    void insert(int val, int pos)
-    {
-        Node *newNode = new Node(val);
-        Node *temp = head;
-        if (pos == 0)
-        {
-            newNode->next = head;
-            head = newNode;
+    void createCycle(int pos) {
+        if (pos == -1) return;
+        Node* tail = head;
+        Node* cycleNode = nullptr;
+        int index = 0;
+        while (tail->next) {
+            if (index == pos)
+                cycleNode = tail;
+            tail = tail->next;
+            index++;
         }
-        else
-        {
-            for (int i = 0; i < pos - 1; i++)
-            {
-                temp = temp->next;
-            }
-            newNode->next = temp->next;
-            temp->next = newNode;
-        }
+        tail->next = cycleNode;
     }
 
-    int middle()
-    {
-        Node* slow=head;
-        Node* fast=head;
-        while(fast!=NULL && fast->next!=NULL){
-            slow=slow->next;
-            fast=fast->next->next;
+    // Detect cycle using Floyd’s Tortoise and Hare algorithm
+    bool hasCycle() {
+        Node* slow = head;
+        Node* fast = head;
+        while (fast != nullptr && fast->next != nullptr) {
+            slow = slow->next;
+            fast = fast->next->next;
+            if (slow == fast)
+                return true;
         }
-        cout<<slow->data<<endl;
+        return false;
     }
 };
-int main()
-{
-    List obj;
 
-    obj.insert(1, 0);
-    obj.insert(2, 1);
-    obj.insert(3, 2);
-    obj.insert(4, 3);
-    obj.insert(5, 4);
-    obj.insert(6, 5);
-    obj.print();
+int main() {
+    LinkedList list1;
+    list1.insert(3);
+    list1.insert(2);
+    list1.insert(0);
+    list1.insert(-4);
+    list1.createCycle(1); // cycle at position 1
+    cout << "List 1 (with cycle): " << (list1.hasCycle() ? "Cycle detected" : "No cycle") << endl;
 
-    cout << endl;
+    LinkedList list2;
+    list2.insert(1);
+    list2.insert(2);
+    list2.createCycle(-1); // no cycle
+    cout << "List 2 (no cycle): " << (list2.hasCycle() ? "Cycle detected" : "No cycle") << endl;
 
-    obj.middle();
+    return 0;
 }
