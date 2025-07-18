@@ -1,135 +1,71 @@
 #include <iostream>
 using namespace std;
 
-class Node
-{
+class Node {
 public:
     int val;
-    Node *next;
-
+    Node* next;
     Node(int x) : val(x), next(nullptr) {}
 };
 
-class LinkedList
-{
-private:
-    Node *head;
-
+class LinkedList {
 public:
+    Node* head;
     LinkedList() : head(nullptr) {}
 
-    Node *getHead()
-    {
-        return head;
-    }
-
-    void insert(int value)
-    {
-        if (!head)
-        {
+    void insert(int value) {
+        if (!head) {
             head = new Node(value);
             return;
         }
-        Node *temp = head;
+        Node* temp = head;
         while (temp->next)
             temp = temp->next;
         temp->next = new Node(value);
     }
 
-    void createCycle(int pos)
-    {
-        if (pos == -1)
-            return;
-        Node *tail = head;
-        Node *cycleStart = nullptr;
-        int index = 0;
-        while (tail->next)
-        {
-            if (index == pos)
-                cycleStart = tail;
-            tail = tail->next;
-            index++;
+    void print() {
+        Node* temp = head;
+        while (temp) {
+            cout << temp->val << " ";
+            temp = temp->next;
         }
-        tail->next = cycleStart;
-    }
-
-    void print()
-    {
-        Node *ptr = head;
-        while (ptr != NULL)
-        {
-            cout<<ptr->val<<endl;
-            ptr=ptr->next;
-        }
-
-    }
-
-    // Detects the node where cycle begins (if present), otherwise returns nullptr
-    Node *detectCycle()
-    {
-        Node *slow = head;
-        Node *fast = head;
-        bool hasCycle = false;
-
-        // Step 1: Detect if cycle exists
-        while (fast != nullptr && fast->next != nullptr)
-        {
-            slow = slow->next;
-            fast = fast->next->next;
-            if (slow == fast)
-            {
-                hasCycle = true;
-                break;
-            }
-        }
-
-        if (!hasCycle)
-            return nullptr;
-
-        // Step 2: Find the start of the cycle
-        slow = head;
-        Node *prev = NULL;
-        while (slow != fast)
-        {
-            slow = slow->next;
-            prev = fast;
-            fast = fast->next;
-        }
-        prev->next = NULL; // Removing the cycle
-        return slow;       // Start node of the cycle
+        cout << endl;
     }
 };
 
-int main()
-{
-    LinkedList list1;
-    list1.insert(3);
-    list1.insert(2);
-    list1.insert(0);
-    list1.insert(-4);
-    list1.createCycle(1); // cycle starts at node with value 2
+Node* mergeTwoLists(Node* list1, Node* list2) {
+    Node* ptr1 = list1;
+    Node* ptr2 = list2;
+    if (ptr1 == nullptr) return ptr2;
+    if (ptr2 == nullptr) return ptr1;
+    if (ptr1->val <= ptr2->val) {
+        ptr1->next = mergeTwoLists(ptr1->next, ptr2);
+        return ptr1;
+    } else {
+        ptr2->next = mergeTwoLists(ptr1, ptr2->next);
+        return ptr2;
+    }
+}
 
-    // list1.print(); Gives infinite loop
+int main() {
+    LinkedList l1, l2;
+    l1.insert(1);
+    l1.insert(3);
+    l1.insert(5);
 
-    Node *cycleStart1 = list1.detectCycle();
-    if (cycleStart1)
-        {cout << "Cycle detected at node with value: " << cycleStart1->val << endl;
-        cout<<"Cycle Removed!"<<endl;}
-    else
-        cout << "No cycle detected in list 1." << endl;
-    
-    list1.print();
+    l2.insert(2);
+    l2.insert(4);
+    l2.insert(6);
 
-    LinkedList list2;
-    list2.insert(1);
-    list2.insert(2);
-    list2.createCycle(-1); // no cycle
+    Node* mergedHead = mergeTwoLists(l1.head, l2.head);
 
-    Node *cycleStart2 = list2.detectCycle();
-    if (cycleStart2)
-        cout << "Cycle detected at node with value: " << cycleStart2->val << endl;
-    else
-        cout << "No cycle detected in list 2." << endl;
+    Node* temp = mergedHead;
+    while (temp) {
+        cout << temp->val << " ";
+        temp = temp->next;
+    }
+    cout << endl;
 
     return 0;
 }
