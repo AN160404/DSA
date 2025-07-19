@@ -1,71 +1,66 @@
 #include <iostream>
+#include <unordered_map>
 using namespace std;
 
 class Node {
 public:
     int val;
     Node* next;
-    Node(int x) : val(x), next(nullptr) {}
+    Node* random;
+
+    Node(int x) : val(x), next(nullptr), random(nullptr) {}
 };
 
-class LinkedList {
-public:
-    Node* head;
-    LinkedList() : head(nullptr) {}
-
-    void insert(int value) {
-        if (!head) {
-            head = new Node(value);
-            return;
-        }
-        Node* temp = head;
-        while (temp->next)
-            temp = temp->next;
-        temp->next = new Node(value);
+Node* copyRandomList(Node* head) {
+    if (head == nullptr) return nullptr;
+    unordered_map<Node*, Node*> m;
+    Node* newHead = new Node(head->val);
+    Node* newTemp = newHead;
+    Node* oldTemp = head->next;
+    m[head] = newHead;
+    while (oldTemp != nullptr) {
+        Node* copy = new Node(oldTemp->val);
+        m[oldTemp] = copy;
+        newTemp->next = copy;
+        oldTemp = oldTemp->next;
+        newTemp = newTemp->next;
     }
+    oldTemp = head;
+    newTemp = newHead;
+    while (oldTemp != nullptr) {
+        newTemp->random = m[oldTemp->random];
+        oldTemp = oldTemp->next;
+        newTemp = newTemp->next;
+    }
+    return newHead;
+}
 
-    void print() {
-        Node* temp = head;
-        while (temp) {
-            cout << temp->val << " ";
-            temp = temp->next;
-        }
+void printList(Node* head) {
+    while (head) {
+        cout << "Val: " << head->val;
+        if (head->random)
+            cout << ", Random: " << head->random->val;
+        else
+            cout << ", Random: NULL";
         cout << endl;
-    }
-};
-
-Node* mergeTwoLists(Node* list1, Node* list2) {
-    Node* ptr1 = list1;
-    Node* ptr2 = list2;
-    if (ptr1 == nullptr) return ptr2;
-    if (ptr2 == nullptr) return ptr1;
-    if (ptr1->val <= ptr2->val) {
-        ptr1->next = mergeTwoLists(ptr1->next, ptr2);
-        return ptr1;
-    } else {
-        ptr2->next = mergeTwoLists(ptr1, ptr2->next);
-        return ptr2;
+        head = head->next;
     }
 }
 
 int main() {
-    LinkedList l1, l2;
-    l1.insert(1);
-    l1.insert(3);
-    l1.insert(5);
+    Node* a = new Node(1);
+    Node* b = new Node(2);
+    Node* c = new Node(3);
 
-    l2.insert(2);
-    l2.insert(4);
-    l2.insert(6);
+    a->next = b;
+    b->next = c;
 
-    Node* mergedHead = mergeTwoLists(l1.head, l2.head);
+    a->random = c;
+    b->random = a;
+    c->random = b;
 
-    Node* temp = mergedHead;
-    while (temp) {
-        cout << temp->val << " ";
-        temp = temp->next;
-    }
-    cout << endl;
+    Node* copied = copyRandomList(a);
+    printList(copied);
 
     return 0;
 }
