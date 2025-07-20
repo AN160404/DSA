@@ -35,40 +35,22 @@ class DLL{
         }
     }
 
-    void remove(int pos){
-        Node *ptr=head;
-       if(pos==0){
-        Node* temp=head;
-        head=head->next;
-        if (head!=NULL)
-        {
-            head->prev=NULL;
+    void reverseDLL(){
+        Node* temp=NULL;
+        Node* curr=head;
+        while(curr!=NULL){
+            // Swapping the next and prev
+            temp=curr->prev;
+            curr->prev=curr->next;
+            curr->next=temp;
+            // The next of curr would be prev due to switch
+            curr=curr->prev;
         }
-        temp->next=NULL;
-        delete temp;
-       }
-       else{
-        for (int i = 0; i < pos-1 && ptr!=NULL; i++)
-        {
-            ptr=ptr->next;
+        if(temp!=NULL){
+            // Last node in the list will be head
+            head=temp->prev;
         }
-
-        Node* temp=ptr->next;
-
-        if(temp->next==NULL){
-            ptr->next=NULL;
-        }
-
-        else{
-            ptr->next=ptr->next->next;
-            ptr->next->prev=ptr;
-        }
-
-        delete temp;
-       }
     }
-
-
 
     void print(){
         Node* ptr=head;
@@ -88,6 +70,6 @@ int main(){
     obj.print();
     cout<<endl;
 
-    obj.remove(0);
+    obj.reverseDLL();
     obj.print();
 }
