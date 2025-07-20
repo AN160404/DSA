@@ -35,17 +35,15 @@ class DLL{
         }
     }
 
-    void pop_front(){
-        
-        
-        Node* temp=head;
-        head=head->next;
-        if (head!=NULL)
-        {
-            head->prev=NULL;
-        }
-        temp->next=NULL;
-        delete temp;
+    void pop_back(){
+       Node *temp=tail;
+       tail=tail->prev;
+       if(tail!=NULL){
+        tail->next=NULL;
+       }
+       temp->prev=NULL; 
+       
+       delete temp;
     }
 
     void print(){
@@ -65,6 +63,6 @@ int main(){
     obj.print();
     cout<<endl;
 
-    obj.pop_front();
+    obj.pop_back();
     obj.print();
 }
