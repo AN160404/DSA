@@ -6,35 +6,22 @@ public:
     int val;
     ListNode* next;
 
-    ListNode(int value, ListNode* nextNode = nullptr) {
+    ListNode(int value) {
         val = value;
-        next = nextNode;
+        next = nullptr;
     }
 };
 
 class Solution {
 public:
-    ListNode* removeElements(ListNode* head, int val) {
-        ListNode* temp = new ListNode(-1, head);  // dummy node before head
-        ListNode* prev = temp;
-        ListNode* curr = head;
-
-        while (curr != nullptr) { //using curr and prev to remove the elements
-            if (curr->val == val) {
-                prev->next = curr->next;
-                delete curr;
-            } else {
-                prev = prev->next;
-            }
-            curr = prev->next;
-        }
-
-        ListNode* result = temp->next;
-        delete temp; 
-        return result;
+    void deleteNode(ListNode* node) {
+        if (node == nullptr || node->next == nullptr) return;
+        node->val = node->next->val;
+        node->next = node->next->next;
     }
 };
 
+// Helper function to print the list
 void printList(ListNode* head) {
     while (head != nullptr) {
         cout << head->val << " ";
@@ -44,19 +31,19 @@ void printList(ListNode* head) {
 }
 
 int main() {
-    // Create list: 1 -> 2 -> 6 -> 3 -> 4 -> 5 -> 6
-    ListNode* head = new ListNode(1);
-    head->next = new ListNode(2);
-    head->next->next = new ListNode(6);
-    head->next->next->next = new ListNode(3);
-    head->next->next->next->next = new ListNode(4);
-    head->next->next->next->next->next = new ListNode(5);
-    head->next->next->next->next->next->next = new ListNode(6);
+    // Create list: 4 -> 5 -> 1 -> 9
+    ListNode* head = new ListNode(4);
+    head->next = new ListNode(5);
+    head->next->next = new ListNode(1);
+    head->next->next->next = new ListNode(9);
 
     Solution sol;
-    ListNode* result = sol.removeElements(head, 6);
 
-    printList(result); // Output: 1 2 3 4 5
+    // Suppose we want to delete the node with value 5 (not the last node)
+    ListNode* nodeToDelete = head->next; // node with value 5
+    sol.deleteNode(nodeToDelete);
+
+    printList(head); // Output: 4 1 9
 
     return 0;
 }
