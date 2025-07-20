@@ -46,6 +46,19 @@ class DLL{
        delete temp;
     }
 
+    void insert(int val,int pos){
+        Node *newNode=new Node(val);
+        Node* ptr=head;
+        for (int i = 0; i < val-1; i++)
+        {
+            ptr=ptr->next;
+        }
+        newNode->next=ptr->next;
+        ptr->next->prev=newNode;
+        ptr->next=newNode;
+        newNode->prev=ptr;      
+    }
+
     void print(){
         Node* ptr=head;
         while(ptr!=NULL){
@@ -60,9 +73,12 @@ int main(){
     obj.push_front(1);
     obj.push_front(2);
     obj.push_front(3);
+
+    obj.insert(0,1);
+
     obj.print();
     cout<<endl;
 
-    obj.pop_back();
-    obj.print();
+    // obj.pop_back();
+    // obj.print();
 }
