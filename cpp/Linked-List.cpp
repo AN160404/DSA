@@ -1,32 +1,37 @@
 #include <iostream>
 using namespace std;
 
-// Definition for singly-linked list node
 class ListNode {
 public:
     int val;
     ListNode* next;
 
-    ListNode(int value) {
+    ListNode(int value, ListNode* nextNode = nullptr) {
         val = value;
-        next = nullptr;
+        next = nextNode;
     }
 };
 
 class Solution {
 public:
     ListNode* removeElements(ListNode* head, int val) {
-        if (head == nullptr) return nullptr;
+        ListNode* temp = new ListNode(-1, head);  // dummy node before head
+        ListNode* prev = temp;
+        ListNode* curr = head;
 
-        head->next = removeElements(head->next, val);
-
-        if (head->val == val) {
-            ListNode* temp = head->next;
-            delete head;
-            return temp;
+        while (curr != nullptr) { //using curr and prev to remove the elements
+            if (curr->val == val) {
+                prev->next = curr->next;
+                delete curr;
+            } else {
+                prev = prev->next;
+            }
+            curr = prev->next;
         }
 
-        return head;
+        ListNode* result = temp->next;
+        delete temp; 
+        return result;
     }
 };
 
@@ -39,7 +44,7 @@ void printList(ListNode* head) {
 }
 
 int main() {
-    // Example: creating list 1 -> 2 -> 6 -> 3 -> 4 -> 5 -> 6
+    // Create list: 1 -> 2 -> 6 -> 3 -> 4 -> 5 -> 6
     ListNode* head = new ListNode(1);
     head->next = new ListNode(2);
     head->next->next = new ListNode(6);
@@ -51,7 +56,7 @@ int main() {
     Solution sol;
     ListNode* result = sol.removeElements(head, 6);
 
-    printList(result); // Output should be: 1 2 3 4 5
+    printList(result); // Output: 1 2 3 4 5
 
     return 0;
 }
