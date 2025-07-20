@@ -1,66 +1,57 @@
 #include <iostream>
-#include <unordered_map>
 using namespace std;
 
-class Node {
+// Definition for singly-linked list node
+class ListNode {
 public:
     int val;
-    Node* next;
-    Node* random;
+    ListNode* next;
 
-    Node(int x) : val(x), next(nullptr), random(nullptr) {}
+    ListNode(int value) {
+        val = value;
+        next = nullptr;
+    }
 };
 
-Node* copyRandomList(Node* head) {
-    if (head == nullptr) return nullptr;
-    unordered_map<Node*, Node*> m;
-    Node* newHead = new Node(head->val);
-    Node* newTemp = newHead;
-    Node* oldTemp = head->next;
-    m[head] = newHead;
-    while (oldTemp != nullptr) {
-        Node* copy = new Node(oldTemp->val);
-        m[oldTemp] = copy;
-        newTemp->next = copy;
-        oldTemp = oldTemp->next;
-        newTemp = newTemp->next;
-    }
-    oldTemp = head;
-    newTemp = newHead;
-    while (oldTemp != nullptr) {
-        newTemp->random = m[oldTemp->random];
-        oldTemp = oldTemp->next;
-        newTemp = newTemp->next;
-    }
-    return newHead;
-}
+class Solution {
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+        if (head == nullptr) return nullptr;
 
-void printList(Node* head) {
-    while (head) {
-        cout << "Val: " << head->val;
-        if (head->random)
-            cout << ", Random: " << head->random->val;
-        else
-            cout << ", Random: NULL";
-        cout << endl;
+        head->next = removeElements(head->next, val);
+
+        if (head->val == val) {
+            ListNode* temp = head->next;
+            delete head;
+            return temp;
+        }
+
+        return head;
+    }
+};
+
+void printList(ListNode* head) {
+    while (head != nullptr) {
+        cout << head->val << " ";
         head = head->next;
     }
+    cout << endl;
 }
 
 int main() {
-    Node* a = new Node(1);
-    Node* b = new Node(2);
-    Node* c = new Node(3);
+    // Example: creating list 1 -> 2 -> 6 -> 3 -> 4 -> 5 -> 6
+    ListNode* head = new ListNode(1);
+    head->next = new ListNode(2);
+    head->next->next = new ListNode(6);
+    head->next->next->next = new ListNode(3);
+    head->next->next->next->next = new ListNode(4);
+    head->next->next->next->next->next = new ListNode(5);
+    head->next->next->next->next->next->next = new ListNode(6);
 
-    a->next = b;
-    b->next = c;
+    Solution sol;
+    ListNode* result = sol.removeElements(head, 6);
 
-    a->random = c;
-    b->random = a;
-    c->random = b;
-
-    Node* copied = copyRandomList(a);
-    printList(copied);
+    printList(result); // Output should be: 1 2 3 4 5
 
     return 0;
 }
