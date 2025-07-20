@@ -21,17 +21,31 @@ class DLL{
         head=tail=NULL;
     }
 
-    void push_back(int num){
+    void push_front(int num){
         Node* newNode=new Node(num);
+        Node* ptr=head;
         if(head==NULL && tail==NULL){
             head=tail=newNode;
             head->next=NULL;
         }
         else{
-            tail->next=newNode;
-            newNode->prev=tail;
-            tail=newNode;
+            newNode->next=head;
+            head->prev=newNode;
+            head=newNode;
         }
+    }
+
+    void pop_front(){
+        
+        
+        Node* temp=head;
+        head=head->next;
+        if (head!=NULL)
+        {
+            head->prev=NULL;
+        }
+        temp->next=NULL;
+        delete temp;
     }
 
     void print(){
@@ -45,8 +59,12 @@ class DLL{
 
 int main(){
     DLL obj;
-    obj.push_back(1);
-    obj.push_back(2);
-    obj.push_back(3);
+    obj.push_front(1);
+    obj.push_front(2);
+    obj.push_front(3);
+    obj.print();
+    cout<<endl;
+
+    obj.pop_front();
     obj.print();
 }
