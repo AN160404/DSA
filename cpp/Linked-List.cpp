@@ -1,49 +1,52 @@
 #include <iostream>
 using namespace std;
 
-class ListNode {
-public:
+class Node{
+    public:
     int val;
-    ListNode* next;
+    Node *next;
 
-    ListNode(int value) {
-        val = value;
-        next = nullptr;
+    Node(int data){
+        val=data;
+        next=NULL;
     }
 };
 
-class Solution {
-public:
-    void deleteNode(ListNode* node) {
-        if (node == nullptr || node->next == nullptr) return;
-        node->val = node->next->val;
-        node->next = node->next->next;
+class CLL{
+    Node* head;
+    Node* tail;
+    public:
+    CLL(){
+        head=NULL;
+        tail=NULL;
+    }
+
+    void insert_at_head(int val){
+        Node* newnode=new Node(val);
+        if(head==NULL){
+            head=tail=newnode;
+            tail->next=head;
+        }
+        newnode->next=head;
+        head=newnode;
+        tail->next=head;
+    }
+
+    void print(){
+        Node* ptr=head->next;
+        cout<<head->val<<" ";
+        while(ptr!=head){
+            cout<<ptr->val<<" ";
+            ptr=ptr->next;
+        }
     }
 };
 
-// Helper function to print the list
-void printList(ListNode* head) {
-    while (head != nullptr) {
-        cout << head->val << " ";
-        head = head->next;
-    }
-    cout << endl;
-}
+int main(){
+    CLL obj;
+    obj.insert_at_head(1);
+    obj.insert_at_head(2);
+    obj.insert_at_head(3);
 
-int main() {
-    // Create list: 4 -> 5 -> 1 -> 9
-    ListNode* head = new ListNode(4);
-    head->next = new ListNode(5);
-    head->next->next = new ListNode(1);
-    head->next->next->next = new ListNode(9);
-
-    Solution sol;
-
-    // Suppose we want to delete the node with value 5 (not the last node)
-    ListNode* nodeToDelete = head->next; // node with value 5
-    sol.deleteNode(nodeToDelete);
-
-    printList(head); // Output: 4 1 9
-
-    return 0;
+    obj.print();
 }
