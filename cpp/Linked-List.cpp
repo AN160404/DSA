@@ -21,14 +21,14 @@ class CLL{
         tail=NULL;
     }
 
-    void insert_at_head(int val){
+    void insert_at_tail(int val){
         Node* newnode=new Node(val);
         if(head==NULL){
             head=tail=newnode;
             tail->next=head;
         }
-        newnode->next=head;
-        head=newnode;
+        tail->next=newnode;
+        tail=newnode;
         tail->next=head;
     }
 
@@ -44,9 +44,9 @@ class CLL{
 
 int main(){
     CLL obj;
-    obj.insert_at_head(1);
-    obj.insert_at_head(2);
-    obj.insert_at_head(3);
+    obj.insert_at_tail(1);
+    obj.insert_at_tail(2);
+    obj.insert_at_tail(3);
 
     obj.print();
 }
