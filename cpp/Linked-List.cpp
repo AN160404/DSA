@@ -32,22 +32,21 @@ class CLL{
         tail->next=head;
     }
 
-    void del_at_tail(){
-        Node* temp=NULL;
-        if(head==NULL) return;
-        if(head==tail){
-            delete head;
-            head=tail=NULL;
+    void insert_at_position(int pos, int val){
+        Node* newnode=new Node(val);
+        Node *ptr=head;
+        if(pos==0){
+            newnode->next=head;
+            tail->next=newnode;
+            head=newnode;
+            return;
         }
-        temp=tail;
-        Node* ptr=head;
-
-        while(ptr->next!=tail){
-            ptr=ptr->next;
+        for (int i = 0; i < pos-1; i++)
+        {
+            ptr=ptr->next;    
         }
-        tail=ptr;
-        tail->next=head;
-        delete temp;
+        newnode->next=ptr->next;
+        ptr->next=newnode;  
     }
 
     void print(){
@@ -70,7 +69,7 @@ int main(){
 
     cout<<endl;
 
-    obj.del_at_tail();
+    obj.insert_at_position(1,0);
     // obj.del_at_tail();
     // obj.del_at_tail();
     obj.print();
