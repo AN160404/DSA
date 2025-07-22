@@ -39,30 +39,21 @@ public:
         tail->next = head;
     }
 
-    void delete_at_position(int pos)
-    {
-        Node *ptr = head;
-        if (pos == 0)
-        {
-            head = head->next;
-            tail->next = head;
-            delete ptr;
-            return;
-        }
-        for (int i = 0; i < pos - 1; i++)
-        {
-            ptr = ptr->next;
-        }
+    void reverse(){
+        Node* prev=NULL;
+        Node* curr=head;
+        Node* next=NULL;
+        Node* start=head;
+        do{
+            next=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=next;
+        }while(curr!=start);
 
-        Node *temp = ptr->next;
-        ptr->next = temp->next;
-        if (temp == tail)
-        {
-            tail = ptr;
-            tail->next = head;
-        }
-
-        delete temp;
+        head->next=prev; // head is the old head and the new tail and after reversal prev is the new head
+        tail=head; // old head is the tail 
+        head=prev; // prev is the head
     }
 
     void print()
@@ -88,7 +79,7 @@ int main()
 
     cout << endl;
 
-    obj.delete_at_position(2);
+    obj.reverse();
 
     obj.print();
 }
