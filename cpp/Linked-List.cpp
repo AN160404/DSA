@@ -1,99 +1,58 @@
 #include <iostream>
-
 using namespace std;
 
-class Node {
-public:
-    int data;
-    Node* next;
-
-    Node(int val) {
-        data = val;
-        next = NULL;
-    }
+// Definition for singly-linked list.
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode(int x) : val(x), next(NULL) {}
 };
 
-class List {
-    Node* head;
-    Node* tail;
+// Recursive function to swap pairs
+ListNode* swapPairs(ListNode* head) {
+    if (head == NULL || head->next == NULL) return head;
 
-public:
-    List() {
-        head = tail = NULL;
+    ListNode* nextptr = head->next;
+    ListNode* prev = swapPairs(nextptr->next);
+
+    nextptr->next = head;
+    head->next = prev;
+    return nextptr;
+}
+
+// Helper function to print the linked list
+void printList(ListNode* head) {
+    while (head != NULL) {
+        cout << head->val << " ";
+        head = head->next;
     }
+    cout << endl;
+}
 
-    // Printing LL
-    void print() {
-        Node* ptr = head;
-        while (ptr != NULL) {
-            cout << ptr->data << " ";
-            ptr = ptr->next;
-        }
-        cout << endl;
+// Helper function to create a linked list from an array
+ListNode* createList(int arr[], int n) {
+    if (n == 0) return NULL;
+    ListNode* head = new ListNode(arr[0]);
+    ListNode* curr = head;
+    for (int i = 1; i < n; i++) {
+        curr->next = new ListNode(arr[i]);
+        curr = curr->next;
     }
-
-    // Pushing the value in the Back of the Linked List
-    void push_back(int val) {
-        Node* newNode = new Node(val);
-        if (head == NULL) {
-            head = tail = newNode;
-            return;
-        }
-        tail->next = newNode;
-        tail = newNode;
-    }
-
-    // Reverse nodes in k-group (return new head)
-    Node* reverseKGroup(Node* head, int k) {
-        Node*ptr=head;
-        Node* next=NULL;
-        int count=0;
-        while(count<k){
-            if(ptr==NULL) return head;
-            ptr=ptr->next;
-            count++;
-        }
-        Node* prevNode=reverseKGroup(ptr,k);
-
-        ptr=head;
-        count=0;
-        while(count<k){
-            next=ptr->next;
-            ptr->next=prevNode;
-            prevNode=ptr;
-            ptr=next;
-            count++;
-        }
-        return prevNode;
-    }
-
-    // Setter for head (to update after reverse)
-    void setHead(Node* newHead) {
-        head = newHead;
-    }
-
-    // Getter for head (to pass as argument)
-    Node* getHead() {
-        return head;
-    }
-};
+    return head;
+}
 
 int main() {
-    List obj;
-    obj.push_back(1);
-    obj.push_back(2);
-    obj.push_back(3);
-    obj.push_back(4);
-    obj.push_back(5);
+    int arr[] = {1, 2, 3, 4};
+    int n = sizeof(arr) / sizeof(arr[0]);
 
+    ListNode* head = createList(arr, n);
     cout << "Original list: ";
-    obj.print();
+    printList(head);
 
-    Node* newHead = obj.reverseKGroup(obj.getHead(), 2);
-    obj.setHead(newHead);
+    head = swapPairs(head);
 
-    cout << "Modified list: ";
-    obj.print();
+    cout << "Swapped list: ";
+    printList(head);
 
     return 0;
 }
